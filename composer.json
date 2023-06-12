@@ -1,0 +1,16 @@
+{
+    "name": "wladimir/parser-excel",
+    "description": "Parse excel formula to syntax tree",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Wladimir\\ParserExcel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "т"
+        }
+    ],
+    "require": {}
+}
