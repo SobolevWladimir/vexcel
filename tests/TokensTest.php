@@ -30,6 +30,17 @@ final class TokensTest extends TestCase
          $tokens  = $sut->getTokens();
          $this->assertSame(json_encode($tokens), json_encode($response));
     }
+
+    public function testFloat(): void
+    {
+         $formula  = "3.10";
+         $sut = new Token($formula);
+         $response = [
+            new TokenValue(ValueType::Float, 3.10),
+         ];
+         $tokens  = $sut->getTokens();
+         $this->assertSame(json_encode($tokens), json_encode($response));
+    }
     // public function testsimpleParse()
     // {
         // $formula  = "СУММА(2;3.3)";
