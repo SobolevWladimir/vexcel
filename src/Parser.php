@@ -4,7 +4,7 @@ namespace Wladimir\ParserExcel;
 
 class Parser
 {
-    public function parse()
+    public function parseSimple(string $formula)
     {
     }
 }
