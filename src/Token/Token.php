@@ -70,7 +70,7 @@ class Token
 
     private function isOperator(): bool
     {
-        if (array_search($this->getCurrentSymbol(), $this->operators)) {
+        if (array_search($this->getCurrentSymbol(), $this->operators) !== false) {
             return true;
         }
         return false;
@@ -135,7 +135,6 @@ class Token
                 $this->position++;
             }
         }
-        $this->position++;
         if ($hasDot) {
             return new TokenValue(ValueType::Float, (float)$result);
         }
@@ -149,7 +148,6 @@ class Token
             $result .= $this->getCurrentSymbol();
             $this->position++;
         }
-        $this->position++;
         return new TokenValue(ValueType::Operator, $result);
     }
 }

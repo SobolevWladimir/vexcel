@@ -8,4 +8,5 @@ enum ValueType: string
     case Int = 'int';
     case Float = 'float';
     case Function = 'function';
+    case Operator = 'operator';
 }
