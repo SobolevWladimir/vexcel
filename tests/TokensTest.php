@@ -134,4 +134,29 @@ final class TokensTest extends TestCase
          $tokens  = $sut->getTokens();
          $this->assertSame(json_encode($response), json_encode($tokens));
     }
+
+
+    public function testFromFile(): void
+    {
+         $formula  = file_get_contents(__DIR__ . "/formula.txt");
+        var_dump($formula);
+         $sut = new Token($formula);
+         $response = [
+            new TokenValue(ValueType::Function, "Если"),
+            new TokenValue(ValueType::Function, "Сумма"),
+            new TokenValue(ValueType::Variable, "Пользователь"),
+            new TokenValue(ValueType::Separator, ";"),
+            new TokenValue(ValueType::Int, 3),
+            new TokenValue(ValueType::EndFunction, ')'),
+            new TokenValue(ValueType::ConditionalOperator, '=='),
+            new TokenValue(ValueType::Int, 5),
+            new TokenValue(ValueType::Separator, ";"),
+            new TokenValue(ValueType::String, "Да"),
+            new TokenValue(ValueType::Separator, ";"),
+            new TokenValue(ValueType::Float, 3.3),
+            new TokenValue(ValueType::EndFunction, ')'),
+         ];
+         $tokens  = $sut->getTokens();
+         $this->assertSame(json_encode($response), json_encode($tokens));
+    }
 }
