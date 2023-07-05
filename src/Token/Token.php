@@ -8,6 +8,8 @@ class Token
     /** @val TokenValue[] $tokens*/
     private array $tokens = [];
 
+    private array $operators  = ['!', '=', '<', '>'];
+
     public function __construct(private string $text)
     {
     }
@@ -45,6 +47,9 @@ class Token
             if ($this->isNumber()) {
                 return $this->readNumber();
             }
+            if ($this->isOperator()) {
+                return $this->readOperator();
+            }
             $this->position++;
         }
         return null;
@@ -58,6 +63,14 @@ class Token
     private function isNumber(): bool
     {
         if (preg_match("/[0-9]/i", $this->getCurrentSymbol())) {
+            return true;
+        }
+        return false;
+    }
+
+    private function isOperator(): bool
+    {
+        if (array_search($this->getCurrentSymbol(), $this->operators)) {
             return true;
         }
         return false;
@@ -127,5 +140,16 @@ class Token
             return new TokenValue(ValueType::Float, (float)$result);
         }
         return new TokenValue(ValueType::Int, (int)$result);
+    }
+    private function readOperator()
+    {
+        $result = "";
+
+        while ($this->isOperator() &&  !$this->isEnd()) {
+            $result .= $this->getCurrentSymbol();
+            $this->position++;
+        }
+        $this->position++;
+        return new TokenValue(ValueType::Operator, $result);
     }
 }
