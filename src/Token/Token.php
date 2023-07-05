@@ -8,7 +8,7 @@ class Token
     /** @val TokenValue[] $tokens*/
     private array $tokens = [];
 
-    private array $operators  = ['!', '=', '<', '>'];
+    private array $conditionalOperators  = ['!', '=', '<', '>'];
 
     public function __construct(private string $text)
     {
@@ -47,8 +47,11 @@ class Token
             if ($this->isNumber()) {
                 return $this->readNumber();
             }
-            if ($this->isOperator()) {
-                return $this->readOperator();
+            if ($this->isConditionalOperator()) {
+                return $this->readConditionalOperator();
+            }
+            if ($this->isVariable()) {
+                return $this->readVariable();
             }
             $this->position++;
         }
@@ -57,7 +60,7 @@ class Token
 
     private function getCurrentSymbol(): string
     {
-        return $this->text[$this->position];
+        return mb_substr($this->text, $this->position, 1);
     }
 
     private function isNumber(): bool
@@ -68,9 +71,17 @@ class Token
         return false;
     }
 
-    private function isOperator(): bool
+    private function isVariable(): bool
     {
-        if (array_search($this->getCurrentSymbol(), $this->operators) !== false) {
+        if (preg_match("/[a-zа-я]/i", $this->getCurrentSymbol())) {
+            return true;
+        }
+        return false;
+    }
+
+    private function isConditionalOperator(): bool
+    {
+        if (array_search($this->getCurrentSymbol(), $this->conditionalOperators) !== false) {
             return true;
         }
         return false;
@@ -84,18 +95,6 @@ class Token
             return true;
         }
         if ($currentSymbol  === "'") {
-            return true;
-        }
-        return false;
-    }
-
-    private function isSeparator(): bool
-    {
-        $currentSymbol  = $this->getCurrentSymbol();
-        if ($currentSymbol === ' ') {
-            return true;
-        }
-        if ($currentSymbol  === ";") {
             return true;
         }
         return false;
@@ -140,14 +139,26 @@ class Token
         }
         return new TokenValue(ValueType::Int, (int)$result);
     }
-    private function readOperator()
+
+    private function readConditionalOperator(): TokenValue
     {
         $result = "";
 
-        while ($this->isOperator() &&  !$this->isEnd()) {
+        while ($this->isConditionalOperator() &&  !$this->isEnd()) {
             $result .= $this->getCurrentSymbol();
             $this->position++;
         }
-        return new TokenValue(ValueType::Operator, $result);
+        return new TokenValue(ValueType::ConditionalOperator, $result);
+    }
+
+    private function readVariable(): TokenValue
+    {
+        $result = "";
+
+        while ($this->isVariable() &&  !$this->isEnd()) {
+            $result .= $this->getCurrentSymbol();
+            $this->position++;
+        }
+        return new TokenValue(ValueType::Variable, $result);
     }
 }
