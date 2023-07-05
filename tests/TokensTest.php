@@ -119,4 +119,19 @@ final class TokensTest extends TestCase
          $tokens  = $sut->getTokens();
          $this->assertSame(json_encode($response), json_encode($tokens));
     }
+
+    public function testFunctionSumm(): void
+    {
+         $formula  = "Сумма(2;3)";
+         $sut = new Token($formula);
+         $response = [
+            new TokenValue(ValueType::Function, "Сумма"),
+            new TokenValue(ValueType::Int, 2),
+            new TokenValue(ValueType::Separator, ";"),
+            new TokenValue(ValueType::Int, 3),
+            new TokenValue(ValueType::EndFunction, ')'),
+         ];
+         $tokens  = $sut->getTokens();
+         $this->assertSame(json_encode($response), json_encode($tokens));
+    }
 }

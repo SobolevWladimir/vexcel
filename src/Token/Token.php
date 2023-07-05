@@ -58,6 +58,17 @@ class Token
             if ($this->isVariable()) {
                 return $this->readVariable();
             }
+             $currentSymbol = $this->getCurrentSymbol();
+            if ($currentSymbol  === ";") {
+                $this->position++;
+                return new TokenValue(ValueType::Separator, $currentSymbol);
+            }
+
+            if ($currentSymbol  === ")") {
+                $this->position++;
+                return new TokenValue(ValueType::EndFunction, $currentSymbol);
+            }
+
             $this->position++;
         }
         return null;
@@ -178,10 +189,22 @@ class Token
     private function readVariable(): TokenValue
     {
         $result = "";
+        $isFunction  = false;
+        while (!$this->isEnd()) {
+            $currentSymbol  = $this->getCurrentSymbol();
+            if ($currentSymbol === "(") {
+                $isFunction = true;
+                break;
+            }
+            if (!$this->isVariable()) {
+                break;
+            }
 
-        while ($this->isVariable() &&  !$this->isEnd()) {
-            $result .= $this->getCurrentSymbol();
+            $result .= $currentSymbol;
             $this->position++;
+        }
+        if ($isFunction) {
+            return new TokenValue(ValueType::Function, $result);
         }
         return new TokenValue(ValueType::Variable, $result);
     }
