@@ -10,6 +10,8 @@ class Token
 
     private array $conditionalOperators  = ['!', '=', '<', '>'];
 
+    private array $operators  = ['*', '/', '+', '-', '^'];
+
     public function __construct(private string $text)
     {
     }
@@ -50,6 +52,9 @@ class Token
             if ($this->isConditionalOperator()) {
                 return $this->readConditionalOperator();
             }
+            if ($this->isOperator()) {
+                return $this->readOperator();
+            }
             if ($this->isVariable()) {
                 return $this->readVariable();
             }
@@ -82,6 +87,14 @@ class Token
     private function isConditionalOperator(): bool
     {
         if (array_search($this->getCurrentSymbol(), $this->conditionalOperators) !== false) {
+            return true;
+        }
+        return false;
+    }
+
+    private function isOperator(): bool
+    {
+        if (array_search($this->getCurrentSymbol(), $this->operators) !== false) {
             return true;
         }
         return false;
@@ -149,6 +162,17 @@ class Token
             $this->position++;
         }
         return new TokenValue(ValueType::ConditionalOperator, $result);
+    }
+
+    private function readOperator(): TokenValue
+    {
+        $result = "";
+
+        while ($this->isOperator() &&  !$this->isEnd()) {
+            $result .= $this->getCurrentSymbol();
+            $this->position++;
+        }
+        return new TokenValue(ValueType::Operator, $result);
     }
 
     private function readVariable(): TokenValue

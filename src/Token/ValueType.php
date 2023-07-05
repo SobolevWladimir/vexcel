@@ -8,6 +8,7 @@ enum ValueType: string
     case Int = 'int';
     case Float = 'float';
     case Function = 'function';
-    case ConditionalOperator = 'operator';
+    case ConditionalOperator = 'conditionalOperator';
+    case Operator = 'operator';
     case Variable = 'variable';
 }

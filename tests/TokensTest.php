@@ -48,7 +48,7 @@ final class TokensTest extends TestCase
          $sut = new Token($formula);
          $response = [
             new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::Operator, '>'),
+            new TokenValue(ValueType::ConditionalOperator, '>'),
             new TokenValue(ValueType::Int, 4),
          ];
          $tokens  = $sut->getTokens();
@@ -61,7 +61,7 @@ final class TokensTest extends TestCase
          $sut = new Token($formula);
          $response = [
             new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::Operator, '>'),
+            new TokenValue(ValueType::ConditionalOperator, '>'),
             new TokenValue(ValueType::Int, 4),
          ];
          $tokens  = $sut->getTokens();
@@ -113,7 +113,7 @@ final class TokensTest extends TestCase
          $sut = new Token($formula);
          $response = [
             new TokenValue(ValueType::Variable, "Месторождение"),
-            //new TokenValue(ValueType::Operator, "+"),
+            new TokenValue(ValueType::Operator, "+"),
             new TokenValue(ValueType::Variable, "Language"),
          ];
          $tokens  = $sut->getTokens();
