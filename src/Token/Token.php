@@ -66,12 +66,12 @@ class Token
              $currentSymbol = $this->getCurrentSymbol();
             if ($currentSymbol  === ";") {
                 $this->nextSymbol();
-                return new TokenValue(ValueType::Separator, $currentSymbol);
+                return $this->getTokenValue(ValueType::Separator, $currentSymbol);
             }
 
             if ($currentSymbol  === ")") {
                 $this->nextSymbol();
-                return new TokenValue(ValueType::EndFunction, $currentSymbol);
+                return $this->getTokenValue(ValueType::EndFunction, $currentSymbol);
             }
             // if ($currentSymbol !== " " && !$this->isNewLine()) {
             //     $symbol = json_encode($currentSymbol);
@@ -81,6 +81,11 @@ class Token
             $this->nextSymbol();
         }
         return null;
+    }
+
+    private function getTokenValue(ValueType $type, mixed $value): TokenValue
+    {
+        return new TokenValue($type, $value, $this->row, $this->column);
     }
 
     private function getCurrentSymbol(): string
@@ -169,7 +174,7 @@ class Token
             $this->nextSymbol();
         }
         $this->nextSymbol();
-        return new TokenValue(ValueType::String, $result);
+        return $this->getTokenValue(ValueType::String, $result);
     }
 
     private function readNumber(): TokenValue
@@ -188,9 +193,9 @@ class Token
             }
         }
         if ($hasDot) {
-            return new TokenValue(ValueType::Float, (float)$result);
+            return $this->getTokenValue(ValueType::Float, (float)$result);
         }
-        return new TokenValue(ValueType::Int, (int)$result);
+        return $this->getTokenValue(ValueType::Int, (int)$result);
     }
 
     private function readConditionalOperator(): TokenValue
@@ -201,7 +206,7 @@ class Token
             $result .= $this->getCurrentSymbol();
             $this->nextSymbol();
         }
-        return new TokenValue(ValueType::ConditionalOperator, $result);
+        return $this->getTokenValue(ValueType::ConditionalOperator, $result);
     }
 
     private function readOperator(): TokenValue
@@ -212,7 +217,7 @@ class Token
             $result .= $this->getCurrentSymbol();
             $this->nextSymbol();
         }
-        return new TokenValue(ValueType::Operator, $result);
+        return $this->getTokenValue(ValueType::Operator, $result);
     }
 
     private function readVariable(): TokenValue
@@ -233,8 +238,8 @@ class Token
             $this->nextSymbol();
         }
         if ($isFunction) {
-            return new TokenValue(ValueType::Function, $result);
+            return $this->getTokenValue(ValueType::Function, $result);
         }
-        return new TokenValue(ValueType::Variable, $result);
+        return $this->getTokenValue(ValueType::Variable, $result);
     }
 }
