@@ -76,10 +76,10 @@ class Token
                 $this->nextSymbol();
                 return $result;
             }
-            // if ($currentSymbol !== " " && !$this->isNewLine()) {
-            //     $symbol = json_encode($currentSymbol);
-            //     throw new SyntaxError("Неизвестный  символ: $symbol", 400, $this->row, $this->column);
-            // }
+            if ($currentSymbol !== " " && !$this->isNewLine()) {
+                $symbol = ord($currentSymbol);
+                throw new SyntaxError("Неизвестный символ: $symbol", 400, $this->row, $this->column);
+            }
 
             $this->nextSymbol();
         }
