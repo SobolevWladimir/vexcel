@@ -48,8 +48,8 @@ final class TokensTest extends TestCase
          $sut = new Token($formula);
          $response = [
             new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::ConditionalOperator, '>'),
-            new TokenValue(ValueType::Int, 4),
+            new TokenValue(ValueType::ConditionalOperator, '>', 0, 1),
+            new TokenValue(ValueType::Int, 4, 0, 2),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -61,8 +61,8 @@ final class TokensTest extends TestCase
          $sut = new Token($formula);
          $response = [
             new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::ConditionalOperator, '>'),
-            new TokenValue(ValueType::Int, 4),
+            new TokenValue(ValueType::ConditionalOperator, '>', 0, 2),
+            new TokenValue(ValueType::Int, 4, 0, 4),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -74,8 +74,8 @@ final class TokensTest extends TestCase
          $sut = new Token($formula);
          $response = [
             new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::ConditionalOperator, '>='),
-            new TokenValue(ValueType::Int, 4),
+            new TokenValue(ValueType::ConditionalOperator, '>=', 0, 2),
+            new TokenValue(ValueType::Int, 4, 0, 5),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -87,8 +87,8 @@ final class TokensTest extends TestCase
          $sut = new Token($formula);
          $response = [
             new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::ConditionalOperator, '<='),
-            new TokenValue(ValueType::Int, 4),
+            new TokenValue(ValueType::ConditionalOperator, '<=', 0, 2),
+            new TokenValue(ValueType::Int, 4, 0, 5),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -100,8 +100,8 @@ final class TokensTest extends TestCase
          $sut = new Token($formula);
          $response = [
             new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::ConditionalOperator, '!='),
-            new TokenValue(ValueType::Int, 4),
+            new TokenValue(ValueType::ConditionalOperator, '!=', 0, 2),
+            new TokenValue(ValueType::Int, 4, 0, 5),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -113,8 +113,8 @@ final class TokensTest extends TestCase
          $sut = new Token($formula);
          $response = [
             new TokenValue(ValueType::Variable, "Месторождение"),
-            new TokenValue(ValueType::Operator, "+"),
-            new TokenValue(ValueType::Variable, "Language"),
+            new TokenValue(ValueType::Operator, "+", 0, 14),
+            new TokenValue(ValueType::Variable, "Language", 0, 16),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -128,7 +128,7 @@ final class TokensTest extends TestCase
             new TokenValue(ValueType::Variable, "Пользователь.Имя"),
          ];
          $tokens  = $sut->getAll();
-         $this->assertSame(json_encode($response), json_encode($tokens));
+         $this->assertSameTokens($response, $tokens);
     }
 
     public function testFunctionSumm(): void
@@ -137,13 +137,13 @@ final class TokensTest extends TestCase
          $sut = new Token($formula);
          $response = [
             new TokenValue(ValueType::Function, "Сумма"),
-            new TokenValue(ValueType::Int, 2),
-            new TokenValue(ValueType::Separator, ";"),
-            new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::EndFunction, ')'),
+            new TokenValue(ValueType::Int, 2, 0, 6),
+            new TokenValue(ValueType::Separator, ";", 0, 7),
+            new TokenValue(ValueType::Int, 3, 0, 8),
+            new TokenValue(ValueType::EndFunction, ')', 0, 9),
          ];
          $tokens  = $sut->getAll();
-         $this->assertSame(json_encode($response), json_encode($tokens));
+         $this->assertSameTokens($response, $tokens);
     }
 
 
@@ -167,14 +167,19 @@ final class TokensTest extends TestCase
             new TokenValue(ValueType::EndFunction, ')', 4, 0),
          ];
          $tokens  = $sut->getAll();
-         $this->assertSame(count($response), count($tokens));
-         foreach ($tokens as $key => $token) {
-             $expected = $response[$key];
-             $this->assertSame($expected->type, $token->type);
-             $this->assertSame($expected->value, $token->value);
-             $value = $token->value;
-             $this->assertSame($expected->row, $token->row, "value: $value");
-             $this->assertSame($expected->column, $token->column, "value: $value");
-         }
+         $this->assertSameTokens($response, $tokens);
+    }
+
+    private function assertSameTokens(array $expectedValues, array $actual): void
+    {
+        $this->assertSame(count($expectedValues), count($actual));
+        foreach ($actual as $key => $token) {
+            $expected = $expectedValues[$key];
+            $this->assertSame($expected->type, $token->type);
+            $this->assertSame($expected->value, $token->value);
+            $value = $token->value;
+            $this->assertSame($expected->row, $token->row, " invalid row! value: '$value'");
+            $this->assertSame($expected->column, $token->column, "invalid column! value: '$value'");
+        }
     }
 }

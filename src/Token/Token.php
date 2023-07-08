@@ -7,6 +7,7 @@ use Wladimir\ParserExcel\Exceptions\SyntaxError;
 class Token
 {
     private int $position = 0;
+
     private int $column = 0;
 
     private int $row = 0;
@@ -65,13 +66,15 @@ class Token
             }
              $currentSymbol = $this->getCurrentSymbol();
             if ($currentSymbol  === ";") {
+                $result = $this->getTokenValue(ValueType::Separator, $currentSymbol, $this->column);
                 $this->nextSymbol();
-                return $this->getTokenValue(ValueType::Separator, $currentSymbol);
+                return $result;
             }
 
             if ($currentSymbol  === ")") {
+                $result  = $this->getTokenValue(ValueType::EndFunction, $currentSymbol, $this->column);
                 $this->nextSymbol();
-                return $this->getTokenValue(ValueType::EndFunction, $currentSymbol);
+                return $result;
             }
             // if ($currentSymbol !== " " && !$this->isNewLine()) {
             //     $symbol = json_encode($currentSymbol);
@@ -83,9 +86,12 @@ class Token
         return null;
     }
 
-    private function getTokenValue(ValueType $type, mixed $value): TokenValue
-    {
-        return new TokenValue($type, $value, $this->row, $this->column);
+    private function getTokenValue(
+        ValueType $type,
+        mixed $value,
+        int $column ,
+    ): TokenValue {
+        return new TokenValue($type, $value, $this->row, $column);
     }
 
     private function getCurrentSymbol(): string
@@ -97,10 +103,11 @@ class Token
     {
         $this->position++;
         if ($this->isNewLine()) {
-            $this->row = 0;
-            $this->column++;
-        } else {
+            $this->position++;
+            $this->column = 0;
             $this->row++;
+        } else {
+            $this->column++;
         }
     }
 
@@ -165,6 +172,8 @@ class Token
 
     private function readString(): TokenValue
     {
+        $startColumn = $this->column;
+        $startRow = $this->row;
         if ($this->isEscaped()) {
             $this->nextSymbol();
         }
@@ -174,13 +183,15 @@ class Token
             $this->nextSymbol();
         }
         $this->nextSymbol();
-        return $this->getTokenValue(ValueType::String, $result);
+        return new TokenValue(ValueType::String, $result, $startRow, $startColumn);
     }
 
     private function readNumber(): TokenValue
     {
         $hasDot = false;
         $result = "";
+        $startColumn = $this->column;
+        $startRow = $this->row;
 
         while ($this->isNumber() &&  !$this->isEnd()) {
             $result .= $this->getCurrentSymbol();
@@ -193,37 +204,42 @@ class Token
             }
         }
         if ($hasDot) {
-            return $this->getTokenValue(ValueType::Float, (float)$result);
+            return new TokenValue(ValueType::Float, (float)$result, $startRow, $startColumn);
         }
-        return $this->getTokenValue(ValueType::Int, (int)$result);
+        return new TokenValue(ValueType::Int, (int)$result, $startRow, $startColumn);
     }
 
     private function readConditionalOperator(): TokenValue
     {
         $result = "";
-
+        $startColumn = $this->column;
+        $startRow = $this->row;
         while ($this->isConditionalOperator() &&  !$this->isEnd()) {
             $result .= $this->getCurrentSymbol();
             $this->nextSymbol();
         }
-        return $this->getTokenValue(ValueType::ConditionalOperator, $result);
+        return new TokenValue(ValueType::ConditionalOperator, $result, $startRow, $startColumn);
     }
 
     private function readOperator(): TokenValue
     {
         $result = "";
+        $startColumn = $this->column;
+        $startRow = $this->row;
 
         while ($this->isOperator() &&  !$this->isEnd()) {
             $result .= $this->getCurrentSymbol();
             $this->nextSymbol();
         }
-        return $this->getTokenValue(ValueType::Operator, $result);
+        return new TokenValue(ValueType::Operator, $result, $startRow, $startColumn);
     }
 
     private function readVariable(): TokenValue
     {
         $result = "";
         $isFunction  = false;
+        $startColumnt = $this->column;
+        $startRow = $this->row;
         while (!$this->isEnd()) {
             $currentSymbol  = $this->getCurrentSymbol();
             if ($currentSymbol === "(") {
@@ -238,8 +254,8 @@ class Token
             $this->nextSymbol();
         }
         if ($isFunction) {
-            return $this->getTokenValue(ValueType::Function, $result);
+            return new TokenValue(ValueType::Function, $result, $startRow, $startColumnt);
         }
-        return $this->getTokenValue(ValueType::Variable, $result);
+        return new TokenValue(ValueType::Variable, $result, $startRow, $startColumnt);
     }
 }
