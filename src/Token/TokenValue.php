@@ -17,6 +17,8 @@ class TokenValue implements \JsonSerializable
         return [
         'type' => $this->type,
         'value' => $this->value,
+        'row' => $this->row,
+        'column' => $this->column,
         ];
     }
 }

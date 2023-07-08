@@ -150,24 +150,31 @@ final class TokensTest extends TestCase
     public function testFromFile(): void
     {
          $formula  = file_get_contents(__DIR__ . "/formula.txt");
-        var_dump($formula);
          $sut = new Token($formula);
          $response = [
             new TokenValue(ValueType::Function, "Если"),
-            new TokenValue(ValueType::Function, "Сумма"),
-            new TokenValue(ValueType::Variable, "Пользователь"),
-            new TokenValue(ValueType::Separator, ";"),
-            new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::EndFunction, ')'),
-            new TokenValue(ValueType::ConditionalOperator, '=='),
-            new TokenValue(ValueType::Int, 5),
-            new TokenValue(ValueType::Separator, ";"),
-            new TokenValue(ValueType::String, "Да"),
-            new TokenValue(ValueType::Separator, ";"),
-            new TokenValue(ValueType::Float, 3.3),
-            new TokenValue(ValueType::EndFunction, ')'),
+            new TokenValue(ValueType::Function, "Сумма", 1, 4),
+            new TokenValue(ValueType::Variable, "Пользователь", 1, 10),
+            new TokenValue(ValueType::Separator, ";", 1, 22),
+            new TokenValue(ValueType::Int, 3, 1, 24),
+            new TokenValue(ValueType::EndFunction, ')', 1, 25),
+            new TokenValue(ValueType::ConditionalOperator, '==', 1, 27),
+            new TokenValue(ValueType::Int, 5, 1, 30),
+            new TokenValue(ValueType::Separator, ";", 1, 31),
+            new TokenValue(ValueType::String, "Да", 2, 4),
+            new TokenValue(ValueType::Separator, ";", 2, 8),
+            new TokenValue(ValueType::Float, 3.3, 3, 4),
+            new TokenValue(ValueType::EndFunction, ')', 4, 0),
          ];
          $tokens  = $sut->getAll();
-         $this->assertSame(json_encode($response), json_encode($tokens));
+         $this->assertSame(count($response), count($tokens));
+         foreach ($tokens as $key => $token) {
+             $expected = $response[$key];
+             $this->assertSame($expected->type, $token->type);
+             $this->assertSame($expected->value, $token->value);
+             $value = $token->value;
+             $this->assertSame($expected->row, $token->row, "value: $value");
+             $this->assertSame($expected->column, $token->column, "value: $value");
+         }
     }
 }

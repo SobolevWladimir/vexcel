@@ -2,9 +2,14 @@
 
 namespace Wladimir\ParserExcel\Token;
 
+use Wladimir\ParserExcel\Exceptions\SyntaxError;
+
 class Token
 {
     private int $position = 0;
+    private int $column = 0;
+
+    private int $row = 0;
     /** @val TokenValue[] $tokens*/
     private array $tokens = [];
 
@@ -60,16 +65,20 @@ class Token
             }
              $currentSymbol = $this->getCurrentSymbol();
             if ($currentSymbol  === ";") {
-                $this->position++;
+                $this->nextSymbol();
                 return new TokenValue(ValueType::Separator, $currentSymbol);
             }
 
             if ($currentSymbol  === ")") {
-                $this->position++;
+                $this->nextSymbol();
                 return new TokenValue(ValueType::EndFunction, $currentSymbol);
             }
+            // if ($currentSymbol !== " " && !$this->isNewLine()) {
+            //     $symbol = json_encode($currentSymbol);
+            //     throw new SyntaxError("Неизвестный  символ: $symbol", 400, $this->row, $this->column);
+            // }
 
-            $this->position++;
+            $this->nextSymbol();
         }
         return null;
     }
@@ -77,6 +86,26 @@ class Token
     private function getCurrentSymbol(): string
     {
         return mb_substr($this->text, $this->position, 1);
+    }
+
+    private function nextSymbol(): void
+    {
+        $this->position++;
+        if ($this->isNewLine()) {
+            $this->row = 0;
+            $this->column++;
+        } else {
+            $this->row++;
+        }
+    }
+
+    private function isNewLine(): bool
+    {
+        $currentSymbol = $this->getCurrentSymbol();
+        if ($currentSymbol == "\n\r" || $currentSymbol == "\n" || $currentSymbol == "\r") {
+            return true;
+        }
+        return false;
     }
 
     private function isNumber(): bool
@@ -132,14 +161,14 @@ class Token
     private function readString(): TokenValue
     {
         if ($this->isEscaped()) {
-            $this->position++;
+            $this->nextSymbol();
         }
         $result = "";
         while (!$this->isEscaped() &&  !$this->isEnd()) {
             $result .= $this->getCurrentSymbol();
-            $this->position++;
+            $this->nextSymbol();
         }
-        $this->position++;
+        $this->nextSymbol();
         return new TokenValue(ValueType::String, $result);
     }
 
@@ -150,12 +179,12 @@ class Token
 
         while ($this->isNumber() &&  !$this->isEnd()) {
             $result .= $this->getCurrentSymbol();
-            $this->position++;
+            $this->nextSymbol();
             $next  = $this->getCurrentSymbol();
             if ($next === "." || $next === ",") {
                 $hasDot = true;
                 $result .= $next;
-                $this->position++;
+                $this->nextSymbol();
             }
         }
         if ($hasDot) {
@@ -170,7 +199,7 @@ class Token
 
         while ($this->isConditionalOperator() &&  !$this->isEnd()) {
             $result .= $this->getCurrentSymbol();
-            $this->position++;
+            $this->nextSymbol();
         }
         return new TokenValue(ValueType::ConditionalOperator, $result);
     }
@@ -181,7 +210,7 @@ class Token
 
         while ($this->isOperator() &&  !$this->isEnd()) {
             $result .= $this->getCurrentSymbol();
-            $this->position++;
+            $this->nextSymbol();
         }
         return new TokenValue(ValueType::Operator, $result);
     }
@@ -201,7 +230,7 @@ class Token
             }
 
             $result .= $currentSymbol;
-            $this->position++;
+            $this->nextSymbol();
         }
         if ($isFunction) {
             return new TokenValue(ValueType::Function, $result);
