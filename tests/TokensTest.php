@@ -120,6 +120,17 @@ final class TokensTest extends TestCase
          $this->assertSame(json_encode($response), json_encode($tokens));
     }
 
+    public function testVarLink(): void
+    {
+         $formula  = "Пользователь.Имя";
+         $sut = new Token($formula);
+         $response = [
+            new TokenValue(ValueType::Variable, "Пользователь.Имя"),
+         ];
+         $tokens  = $sut->getTokens();
+         $this->assertSame(json_encode($response), json_encode($tokens));
+    }
+
     public function testFunctionSumm(): void
     {
          $formula  = "Сумма(2;3)";

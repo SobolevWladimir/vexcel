@@ -89,7 +89,7 @@ class Token
 
     private function isVariable(): bool
     {
-        if (preg_match("/[a-zа-я]/i", $this->getCurrentSymbol())) {
+        if (preg_match("/[a-zа-я._]/i", $this->getCurrentSymbol())) {
             return true;
         }
         return false;
