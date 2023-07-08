@@ -19,7 +19,7 @@ class Token
     /**
      * @return TokenValue[]
      */
-    public function getTokens(): array
+    public function getAll(): array
     {
         if (count($this->tokens) == 0) {
             $this->tokens = $this->parse();

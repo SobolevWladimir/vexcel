@@ -7,6 +7,8 @@ class TokenValue implements \JsonSerializable
     public function __construct(
         public ValueType $type,
         public mixed $value,
+        public int $row = 0,
+        public int $column = 0,
     ) {
     }
 
