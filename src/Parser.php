@@ -2,9 +2,15 @@
 
 namespace Wladimir\ParserExcel;
 
+use Wladimir\ParserExcel\Repository\VariableRepository;
+
 class Parser
 {
-    public function parseSimple(string $formula)
-    {
+    public function __construct(
+        private VariableRepository $repository,
+        private array $operators = [],
+        private array $conditionOperators = [],
+        private array $functions = [],
+    ) {
     }
 }
