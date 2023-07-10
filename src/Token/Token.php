@@ -76,8 +76,8 @@ class Token
                 $this->nextSymbol();
                 return $result;
             }
-            if ($currentSymbol !== " " && !$this->isNewLine()) {
-                $symbol = ord($currentSymbol);
+            if ($currentSymbol !== " "  && $currentSymbol !== "" && !$this->isNewLine()) {
+                $symbol = $currentSymbol;
                 throw new SyntaxError("Неизвестный символ: $symbol", 400, $this->row, $this->column);
             }
 
@@ -244,6 +244,7 @@ class Token
             $currentSymbol  = $this->getCurrentSymbol();
             if ($currentSymbol === "(") {
                 $isFunction = true;
+                $this->nextSymbol();
                 break;
             }
             if (!$this->isVariable()) {
