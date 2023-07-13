@@ -1,8 +1,8 @@
 <?php
 
-namespace Wladimir\ParserExcel\Token;
+namespace Wladimir\ParserExcel\Lexer;
 
-enum ValueType: string
+enum TokenType: string
 {
     case String = 'string';
     case Int = 'int';

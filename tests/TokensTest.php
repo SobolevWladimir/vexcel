@@ -3,18 +3,18 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use Wladimir\ParserExcel\Token\Token;
-use Wladimir\ParserExcel\Token\TokenValue;
-use Wladimir\ParserExcel\Token\ValueType;
+use Wladimir\ParserExcel\Lexer\Lexer;
+use Wladimir\ParserExcel\Lexer\Token;
+use Wladimir\ParserExcel\Lexer\TokenType;
 
 final class TokensTest extends TestCase
 {
     public function testString(): void
     {
          $formula  = "'СУММА(2;3.3)'";
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::String, 'СУММА(2;3.3)'),
+            new Token(TokenType::String, 'СУММА(2;3.3)'),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($tokens), json_encode($response));
@@ -23,9 +23,9 @@ final class TokensTest extends TestCase
     public function testInt(): void
     {
          $formula  = "3";
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::Int, 3),
+            new Token(TokenType::Int, 3),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($tokens), json_encode($response));
@@ -34,9 +34,9 @@ final class TokensTest extends TestCase
     public function testFloat(): void
     {
          $formula  = "3.10";
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::Float, 3.10),
+            new Token(TokenType::Float, 3.10),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($tokens), json_encode($response));
@@ -45,11 +45,11 @@ final class TokensTest extends TestCase
     public function testOperatorMore(): void
     {
          $formula  = "3>4";
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::ConditionalOperator, '>', 0, 1),
-            new TokenValue(ValueType::Int, 4, 0, 2),
+            new Token(TokenType::Int, 3),
+            new Token(TokenType::ConditionalOperator, '>', 0, 1),
+            new Token(TokenType::Int, 4, 0, 2),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -58,11 +58,11 @@ final class TokensTest extends TestCase
     public function testOperatorMoreSpace(): void
     {
          $formula  = "3 > 4";
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::ConditionalOperator, '>', 0, 2),
-            new TokenValue(ValueType::Int, 4, 0, 4),
+            new Token(TokenType::Int, 3),
+            new Token(TokenType::ConditionalOperator, '>', 0, 2),
+            new Token(TokenType::Int, 4, 0, 4),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -71,11 +71,11 @@ final class TokensTest extends TestCase
     public function testOperatorMoreEqual(): void
     {
          $formula  = "3 >= 4";
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::ConditionalOperator, '>=', 0, 2),
-            new TokenValue(ValueType::Int, 4, 0, 5),
+            new Token(TokenType::Int, 3),
+            new Token(TokenType::ConditionalOperator, '>=', 0, 2),
+            new Token(TokenType::Int, 4, 0, 5),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -84,11 +84,11 @@ final class TokensTest extends TestCase
     public function testOperatorLessEqual(): void
     {
          $formula  = "3 <= 4";
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::ConditionalOperator, '<=', 0, 2),
-            new TokenValue(ValueType::Int, 4, 0, 5),
+            new Token(TokenType::Int, 3),
+            new Token(TokenType::ConditionalOperator, '<=', 0, 2),
+            new Token(TokenType::Int, 4, 0, 5),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -97,11 +97,11 @@ final class TokensTest extends TestCase
     public function testOperatorNotEqual(): void
     {
          $formula  = "3 != 4";
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::Int, 3),
-            new TokenValue(ValueType::ConditionalOperator, '!=', 0, 2),
-            new TokenValue(ValueType::Int, 4, 0, 5),
+            new Token(TokenType::Int, 3),
+            new Token(TokenType::ConditionalOperator, '!=', 0, 2),
+            new Token(TokenType::Int, 4, 0, 5),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -110,11 +110,11 @@ final class TokensTest extends TestCase
     public function testVar(): void
     {
          $formula  = "Месторождение + Language";
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::Variable, "Месторождение"),
-            new TokenValue(ValueType::Operator, "+", 0, 14),
-            new TokenValue(ValueType::Variable, "Language", 0, 16),
+            new Token(TokenType::Variable, "Месторождение"),
+            new Token(TokenType::Operator, "+", 0, 14),
+            new Token(TokenType::Variable, "Language", 0, 16),
          ];
          $tokens  = $sut->getAll();
          $this->assertSame(json_encode($response), json_encode($tokens));
@@ -123,9 +123,9 @@ final class TokensTest extends TestCase
     public function testVarLink(): void
     {
          $formula  = "Пользователь.Имя";
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::Variable, "Пользователь.Имя"),
+            new Token(TokenType::Variable, "Пользователь.Имя"),
          ];
          $tokens  = $sut->getAll();
          $this->assertSameTokens($response, $tokens);
@@ -134,13 +134,13 @@ final class TokensTest extends TestCase
     public function testFunctionSumm(): void
     {
          $formula  = "Сумма(2;3)";
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::Function, "Сумма"),
-            new TokenValue(ValueType::Int, 2, 0, 6),
-            new TokenValue(ValueType::Separator, ";", 0, 7),
-            new TokenValue(ValueType::Int, 3, 0, 8),
-            new TokenValue(ValueType::EndFunction, ')', 0, 9),
+            new Token(TokenType::Function, "Сумма"),
+            new Token(TokenType::Int, 2, 0, 6),
+            new Token(TokenType::Separator, ";", 0, 7),
+            new Token(TokenType::Int, 3, 0, 8),
+            new Token(TokenType::EndFunction, ')', 0, 9),
          ];
          $tokens  = $sut->getAll();
          $this->assertSameTokens($response, $tokens);
@@ -150,21 +150,21 @@ final class TokensTest extends TestCase
     public function testFromFile(): void
     {
          $formula  = file_get_contents(__DIR__ . "/formula.txt");
-         $sut = new Token($formula);
+         $sut = new Lexer($formula);
          $response = [
-            new TokenValue(ValueType::Function, "Если"),
-            new TokenValue(ValueType::Function, "Сумма", 1, 4),
-            new TokenValue(ValueType::Variable, "Пользователь", 1, 10),
-            new TokenValue(ValueType::Separator, ";", 1, 22),
-            new TokenValue(ValueType::Int, 3, 1, 24),
-            new TokenValue(ValueType::EndFunction, ')', 1, 25),
-            new TokenValue(ValueType::ConditionalOperator, '==', 1, 27),
-            new TokenValue(ValueType::Int, 5, 1, 30),
-            new TokenValue(ValueType::Separator, ";", 1, 31),
-            new TokenValue(ValueType::String, "Да", 2, 4),
-            new TokenValue(ValueType::Separator, ";", 2, 8),
-            new TokenValue(ValueType::Float, 3.3, 3, 4),
-            new TokenValue(ValueType::EndFunction, ')', 4, 0),
+            new Token(TokenType::Function, "Если"),
+            new Token(TokenType::Function, "Сумма", 1, 4),
+            new Token(TokenType::Variable, "Пользователь", 1, 10),
+            new Token(TokenType::Separator, ";", 1, 22),
+            new Token(TokenType::Int, 3, 1, 24),
+            new Token(TokenType::EndFunction, ')', 1, 25),
+            new Token(TokenType::ConditionalOperator, '==', 1, 27),
+            new Token(TokenType::Int, 5, 1, 30),
+            new Token(TokenType::Separator, ";", 1, 31),
+            new Token(TokenType::String, "Да", 2, 4),
+            new Token(TokenType::Separator, ";", 2, 8),
+            new Token(TokenType::Float, 3.3, 3, 4),
+            new Token(TokenType::EndFunction, ')', 4, 0),
          ];
          $tokens  = $sut->getAll();
          $this->assertSameTokens($response, $tokens);

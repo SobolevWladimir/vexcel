@@ -1,11 +1,11 @@
 <?php
 
-namespace Wladimir\ParserExcel\Token;
+namespace Wladimir\ParserExcel\Lexer;
 
-class TokenValue implements \JsonSerializable
+class Token implements \JsonSerializable
 {
     public function __construct(
-        public ValueType $type,
+        public TokenType $type,
         public mixed $value,
         public int $row = 0,
         public int $column = 0,
