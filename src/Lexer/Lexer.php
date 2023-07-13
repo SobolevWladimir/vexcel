@@ -25,7 +25,7 @@ class Lexer
     /**
      * @return Token[]
      */
-    public function getAll(): array
+    public function getAllTokens(): array
     {
         if (count($this->tokens) == 0) {
             $this->tokens = $this->parse();
