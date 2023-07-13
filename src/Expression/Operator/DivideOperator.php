@@ -2,7 +2,6 @@
 
 namespace Wladimir\ParserExcel\Expression\Operator;
 
-use Wladimir\ParserExcel\Exceptions\UnsupportedError;
 use Wladimir\ParserExcel\Repository\VariableRepository;
 
 class DivideOperator extends Operator
@@ -19,8 +18,6 @@ class DivideOperator extends Operator
         if (is_numeric($left) && is_numeric($riht)) {
             return $left / $riht;
         }
-        $leftType  = gettype($left);
-        $rightType  = gettype($left);
-        throw new  UnsupportedError("Неподдерживаемые типы операндов  $leftType / $rightType");
+        throw $this->getUnsupportedError($left, $riht);
     }
 }

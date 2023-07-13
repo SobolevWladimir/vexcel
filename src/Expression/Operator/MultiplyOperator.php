@@ -3,7 +3,6 @@
 namespace Wladimir\ParserExcel\Expression\Operator;
 
 use Wladimir\ParserExcel\Repository\VariableRepository;
-use Wladimir\ParserExcel\Exceptions\UnsupportedError;
 
 class MultiplyOperator extends Operator
 {
@@ -19,8 +18,6 @@ class MultiplyOperator extends Operator
         if (is_numeric($left) && is_numeric($riht)) {
             return $left * $riht;
         }
-        $leftType  = gettype($left);
-        $rightType  = gettype($left);
-        throw new  UnsupportedError("Неподдерживаемые типы операндов  $leftType * $rightType");
+        throw $this->getUnsupportedError($left, $riht);
     }
 }
