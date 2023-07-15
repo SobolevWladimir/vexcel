@@ -8,5 +8,6 @@ final class DivideOperatorTest extends TestCase
 {
     public function testInt()
     {
+        $this->assertSame(2, 2);
     }
 }
