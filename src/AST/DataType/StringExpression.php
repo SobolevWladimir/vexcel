@@ -1,8 +1,8 @@
 <?php
 
-namespace Wladimir\ParserExcel\Expression\DataType;
+namespace Wladimir\ParserExcel\AST\DataType;
 
-use Wladimir\ParserExcel\Expression\Expression;
+use Wladimir\ParserExcel\AST\Expression;
 use Wladimir\ParserExcel\Repository\VariableRepository;
 
 class StringExpression implements Expression

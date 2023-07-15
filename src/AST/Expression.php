@@ -1,6 +1,6 @@
 <?php
 
-namespace Wladimir\ParserExcel\Expression;
+namespace Wladimir\ParserExcel\AST;
 
 use Wladimir\ParserExcel\Repository\VariableRepository;
 

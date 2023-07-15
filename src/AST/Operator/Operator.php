@@ -1,9 +1,9 @@
 <?php
 
-namespace Wladimir\ParserExcel\Expression\Operator;
+namespace Wladimir\ParserExcel\AST\Operator;
 
 use Wladimir\ParserExcel\Exceptions\UnsupportedError;
-use Wladimir\ParserExcel\Expression\Expression;
+use Wladimir\ParserExcel\AST\Expression;
 
 abstract class Operator implements Expression
 {

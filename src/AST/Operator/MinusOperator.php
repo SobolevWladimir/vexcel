@@ -1,14 +1,14 @@
 <?php
 
-namespace Wladimir\ParserExcel\Expression\Operator;
+namespace Wladimir\ParserExcel\AST\Operator;
 
 use Wladimir\ParserExcel\Repository\VariableRepository;
 
-class MultiplyOperator extends Operator
+class MinusOperator extends Operator
 {
     public function getName(): string
     {
-        return "/";
+        return "-";
     }
 
     public function calculate(VariableRepository $repository): mixed
@@ -16,7 +16,7 @@ class MultiplyOperator extends Operator
         $left = $this->leftExpression->calculate($repository);
         $riht = $this->rightExpression->calculate($repository);
         if (is_numeric($left) && is_numeric($riht)) {
-            return $left * $riht;
+            return $left - $riht;
         }
         throw $this->getUnsupportedError($left, $riht);
     }
