@@ -6,7 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Tests\Data\DummyVariableRepository;
 use Wladimir\ParserExcel\AST\DataType\FloatExpression;
 use Wladimir\ParserExcel\AST\DataType\IntExpression;
+use Wladimir\ParserExcel\AST\DataType\StringExpression;
 use Wladimir\ParserExcel\AST\Operator\DivideOperator;
+use Wladimir\ParserExcel\Exceptions\UnsupportedError;
 
 final class DivideOperatorTest extends TestCase
 {
@@ -29,5 +31,14 @@ final class DivideOperatorTest extends TestCase
         $sut = new DivideOperator($left, $rigth);
         $value  = $sut->calculate($repository);
         $this->assertSame($value, 2.0);
+    }
+    public function testString(): void
+    {
+        $left = new StringExpression("two");
+        $rigth = new StringExpression("two");
+        $repository  = new DummyVariableRepository();
+        $sut = new DivideOperator($left, $rigth);
+        $this->expectException(UnsupportedError::class);
+         $sut->calculate($repository);
     }
 }
