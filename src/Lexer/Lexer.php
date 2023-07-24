@@ -231,7 +231,7 @@ class Lexer
             $result .= $this->getCurrentSymbol();
             $this->nextSymbol();
         }
-        return new Token(TokenType::Operator, $result, $startRow, $startColumn);
+        return new Token(TokenType::BinaryOperator, $result, $startRow, $startColumn);
     }
 
     private function readVariable(): Token

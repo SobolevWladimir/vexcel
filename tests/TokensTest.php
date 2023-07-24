@@ -113,7 +113,7 @@ final class TokensTest extends TestCase
          $sut = new Lexer($formula);
          $response = [
             new Token(TokenType::Variable, "Месторождение"),
-            new Token(TokenType::Operator, "+", 0, 14),
+            new Token(TokenType::BinaryOperator, "+", 0, 14),
             new Token(TokenType::Variable, "Language", 0, 16),
          ];
          $tokens  = $sut->getAllTokens();
@@ -141,6 +141,23 @@ final class TokensTest extends TestCase
             new Token(TokenType::Separator, ";", 0, 7),
             new Token(TokenType::Int, 3, 0, 8),
             new Token(TokenType::Parentheses, ')', 0, 9),
+         ];
+         $tokens  = $sut->getAllTokens();
+         $this->assertSameTokens($response, $tokens);
+    }
+
+    public function testGroupSumm(): void
+    {
+         $formula  = "(2+3)-2";
+         $sut = new Lexer($formula);
+         $response = [
+            new Token(TokenType::Parentheses, '(', 0, 0),
+            new Token(TokenType::Int, 2, 0, 1),
+            new Token(TokenType::BinaryOperator, "+", 0, 2),
+            new Token(TokenType::Int, 3, 0, 3),
+            new Token(TokenType::Parentheses, ')', 0, 4),
+            new Token(TokenType::BinaryOperator, "-", 0, 5),
+            new Token(TokenType::Int, 2, 0, 6),
          ];
          $tokens  = $sut->getAllTokens();
          $this->assertSameTokens($response, $tokens);

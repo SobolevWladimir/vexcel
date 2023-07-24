@@ -9,7 +9,7 @@ enum TokenType: string
     case Float = 'float';
     case Function = 'function';
     case ConditionalOperator = 'conditionalOperator';
-    case Operator = 'operator';
+    case BinaryOperator = 'operator';
     case Variable = 'variable';
     case Parentheses = 'parentheses';
     case Separator = 'separator';
