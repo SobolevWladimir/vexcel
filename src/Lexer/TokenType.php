@@ -11,6 +11,6 @@ enum TokenType: string
     case ConditionalOperator = 'conditionalOperator';
     case Operator = 'operator';
     case Variable = 'variable';
-    case EndFunction = 'endfunction';
+    case Parentheses = 'parentheses';
     case Separator = 'separator';
 }

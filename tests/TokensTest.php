@@ -140,7 +140,7 @@ final class TokensTest extends TestCase
             new Token(TokenType::Int, 2, 0, 6),
             new Token(TokenType::Separator, ";", 0, 7),
             new Token(TokenType::Int, 3, 0, 8),
-            new Token(TokenType::EndFunction, ')', 0, 9),
+            new Token(TokenType::Parentheses, ')', 0, 9),
          ];
          $tokens  = $sut->getAllTokens();
          $this->assertSameTokens($response, $tokens);
@@ -157,14 +157,14 @@ final class TokensTest extends TestCase
             new Token(TokenType::Variable, "Пользователь", 1, 10),
             new Token(TokenType::Separator, ";", 1, 22),
             new Token(TokenType::Int, 3, 1, 24),
-            new Token(TokenType::EndFunction, ')', 1, 25),
+            new Token(TokenType::Parentheses, ')', 1, 25),
             new Token(TokenType::ConditionalOperator, '==', 1, 27),
             new Token(TokenType::Int, 5, 1, 30),
             new Token(TokenType::Separator, ";", 1, 31),
             new Token(TokenType::String, "Да", 2, 4),
             new Token(TokenType::Separator, ";", 2, 8),
             new Token(TokenType::Float, 3.3, 3, 4),
-            new Token(TokenType::EndFunction, ')', 4, 0),
+            new Token(TokenType::Parentheses, ')', 4, 0),
          ];
          $tokens  = $sut->getAllTokens();
          $this->assertSameTokens($response, $tokens);
