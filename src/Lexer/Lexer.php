@@ -71,7 +71,7 @@ class Lexer
                 return $result;
             }
 
-            if ($currentSymbol  === ")") {
+            if ($currentSymbol  === "(" || $currentSymbol  === ")") {
                 $result  = $this->getToken(TokenType::Parentheses, $currentSymbol, $this->column);
                 $this->nextSymbol();
                 return $result;

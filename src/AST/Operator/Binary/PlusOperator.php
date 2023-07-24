@@ -21,11 +21,4 @@ class PlusOperator extends Operator
         }
         return $left . $riht;
     }
-
-    // public function __toString(): string
-    // {
-    //     $left  = (string) $this->leftExpression;
-    //     $right  = (string) $this->rightExpression;
-    //     return $left . " + " . $right;
-    // }
 }
