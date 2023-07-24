@@ -7,7 +7,7 @@ use Tests\Data\DummyVariableRepository;
 use Wladimir\ParserExcel\AST\DataType\FloatExpression;
 use Wladimir\ParserExcel\AST\DataType\IntExpression;
 use Wladimir\ParserExcel\AST\DataType\StringExpression;
-use Wladimir\ParserExcel\AST\Operator\DivideOperator;
+use Wladimir\ParserExcel\AST\Operator\Binary\DivideOperator;
 use Wladimir\ParserExcel\Exceptions\UnsupportedError;
 
 final class DivideOperatorTest extends TestCase

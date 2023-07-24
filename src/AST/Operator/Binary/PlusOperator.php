@@ -1,8 +1,9 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\Operator;
+namespace Wladimir\ParserExcel\AST\Operator\Binary;
 
 use Wladimir\ParserExcel\Repository\VariableRepository;
+use Wladimir\ParserExcel\AST\Operator\Operator;
 
 class PlusOperator extends Operator
 {

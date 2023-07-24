@@ -1,10 +1,11 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\Operator;
+namespace Wladimir\ParserExcel\AST\Operator\Binary;
 
+use Wladimir\ParserExcel\AST\Operator\Operator;
 use Wladimir\ParserExcel\Repository\VariableRepository;
 
-class MultiplyOperator extends Operator
+class DivideOperator extends Operator
 {
     public function getName(): string
     {
@@ -16,7 +17,7 @@ class MultiplyOperator extends Operator
         $left = $this->leftExpression->calculate($repository);
         $riht = $this->rightExpression->calculate($repository);
         if (is_numeric($left) && is_numeric($riht)) {
-            return $left * $riht;
+            return $left / $riht;
         }
         throw $this->getUnsupportedError($left, $riht);
     }
