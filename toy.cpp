@@ -392,7 +392,8 @@ static void HandleExtern() {
 
 static void HandleTopLevelExpression() {
   // Evaluate a top-level expression into an anonymous function.
-  if (ParseTopLevelExpr()) {
+  auto e = ParseTopLevelExpr();
+  if (e) {
     fprintf(stderr, "Parsed a top-level expr\n");
   } else {
     // Skip token for error recovery.
@@ -439,7 +440,6 @@ int main() {
   fprintf(stderr, "ready> ");
   getNextToken();
   int test = 10;
-
   std::string s = std::to_string(CurTok);
   fprintf(stderr, "test: %s \n\r", s.c_str());
   // Run the main "interpreter loop" now.
