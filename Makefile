@@ -18,5 +18,5 @@ example-compile:
 	clang++ -g -O3 toy.cpp `llvm-config --cxxflags`
 
 example-run:
-	./a.out
+	./a.out < test.kd
 
