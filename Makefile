@@ -14,4 +14,9 @@ test-phpunit:  ## phpunit test
 	$(call title,"PHPUnit tests")
 	@$(PHPUNIT) --testdox tests
 
+example-compile:
+	clang++ -g -O3 toy.cpp `llvm-config --cxxflags`
+
+example-run:
+	./a.out
 
