@@ -139,6 +139,8 @@ public:
 
   virtual void printTree(int level = 0) {
     printDebug(level, "name", "BinaryExprAST");
+    std::string operatorName(Op);
+    printDebug(level, "operator", operatorName);
   }
 };
 
