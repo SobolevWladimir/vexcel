@@ -88,7 +88,7 @@ namespace {
 void printDebug(int level = 0, std::string key = "name",
                 std::string value = "") {
   for (int i = 0; i < level; i++) {
-    std::fprintf(stderr, " ");
+    std::fprintf(stderr, "->");
   }
   std::fprintf(stderr, " %s:", key.c_str());
   std::fprintf(stderr, " %s \n\r", value.c_str());
@@ -111,7 +111,9 @@ class NumberExprAST : public ExprAST {
 public:
   NumberExprAST(double Val) : Val(Val) {}
   virtual void printTree(int level = 0) {
+    std::string valueStr = std::to_string(Val);
     printDebug(level, "name", "NumberExprAST");
+    printDebug(level, "value", valueStr);
   }
 };
 
@@ -139,8 +141,13 @@ public:
 
   virtual void printTree(int level = 0) {
     printDebug(level, "name", "BinaryExprAST");
-    std::string operatorName(Op);
+    std::string operatorName = "";
+    operatorName += Op;
     printDebug(level, "operator", operatorName);
+    printDebug(level, "LHS", "-----");
+    LHS->printTree(level + 1);
+    printDebug(level, "RHS", "-----");
+    RHS->printTree(level + 1);
   }
 };
 
@@ -193,7 +200,7 @@ public:
     printDebug(level, "proto", "----");
     Proto->printTree(level + 1);
     printDebug(level, "body", "----");
-    Body->printTree();
+    Body->printTree(level + 1);
   }
 };
 
