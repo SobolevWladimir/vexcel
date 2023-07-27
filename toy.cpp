@@ -85,10 +85,23 @@ static int gettok() {
 
 namespace {
 
+void printDebug(int level = 0, std::string key = "name",
+                std::string value = "") {
+  for (int i = 0; i < level; i++) {
+    std::fprintf(stderr, " ");
+  }
+  std::fprintf(stderr, " %s:", key.c_str());
+  std::fprintf(stderr, " %s \n\r", value.c_str());
+}
+
 /// ExprAST - Base class for all expression nodes.
 class ExprAST {
 public:
   virtual ~ExprAST() = default;
+
+  virtual void printTree(int level = 0) {
+    printDebug(level, "name", "ExprAST");
+  }
 };
 
 /// NumberExprAST - Expression class for numeric literals like "1.0".
@@ -97,6 +110,9 @@ class NumberExprAST : public ExprAST {
 
 public:
   NumberExprAST(double Val) : Val(Val) {}
+  virtual void printTree(int level = 0) {
+    printDebug(level, "name", "NumberExprAST");
+  }
 };
 
 /// VariableExprAST - Expression class for referencing a variable, like "a".
@@ -105,6 +121,10 @@ class VariableExprAST : public ExprAST {
 
 public:
   VariableExprAST(const std::string &Name) : Name(Name) {}
+
+  virtual void printTree(int level = 0) {
+    printDebug(level, "name", "VariableExprAST");
+  }
 };
 
 /// BinaryExprAST - Expression class for a binary operator.
@@ -116,6 +136,10 @@ public:
   BinaryExprAST(char Op, std::unique_ptr<ExprAST> LHS,
                 std::unique_ptr<ExprAST> RHS)
       : Op(Op), LHS(std::move(LHS)), RHS(std::move(RHS)) {}
+
+  virtual void printTree(int level = 0) {
+    printDebug(level, "name", "BinaryExprAST");
+  }
 };
 
 /// CallExprAST - Expression class for function calls.
@@ -127,6 +151,10 @@ public:
   CallExprAST(const std::string &Callee,
               std::vector<std::unique_ptr<ExprAST>> Args)
       : Callee(Callee), Args(std::move(Args)) {}
+
+  virtual void printTree(int level = 0) {
+    printDebug(level, "name", "CallExprAST");
+  }
 };
 
 /// PrototypeAST - This class represents the "prototype" for a function,
@@ -141,6 +169,11 @@ public:
       : Name(Name), Args(std::move(Args)) {}
 
   const std::string &getName() const { return Name; }
+
+  void printTree(int level = 0) {
+    printDebug(level, "name", "PrototypeAST");
+    printDebug(level, "var_name", Name);
+  }
 };
 
 /// FunctionAST - This class represents a function definition itself.
@@ -152,6 +185,14 @@ public:
   FunctionAST(std::unique_ptr<PrototypeAST> Proto,
               std::unique_ptr<ExprAST> Body)
       : Proto(std::move(Proto)), Body(std::move(Body)) {}
+
+  void printTree(int level = 0) {
+    printDebug(level, "name", "FunctionAST");
+    printDebug(level, "proto", "----");
+    Proto->printTree(level + 1);
+    printDebug(level, "body", "----");
+    Body->printTree();
+  }
 };
 
 } // end anonymous namespace
@@ -164,7 +205,10 @@ public:
 /// token the parser is looking at.  getNextToken reads another token from the
 /// lexer and updates CurTok with its results.
 static int CurTok;
-static int getNextToken() { return CurTok = gettok(); }
+static int getNextToken() {
+  auto result = CurTok = gettok();
+  return result;
+}
 
 /// BinopPrecedence - This holds the precedence for each binary operator that is
 /// defined.
@@ -394,6 +438,7 @@ static void HandleTopLevelExpression() {
   // Evaluate a top-level expression into an anonymous function.
   auto e = ParseTopLevelExpr();
   if (e) {
+    e->printTree();
     fprintf(stderr, "Parsed a top-level expr\n");
   } else {
     // Skip token for error recovery.
@@ -404,7 +449,7 @@ static void HandleTopLevelExpression() {
 /// top ::= definition | external | expression | ';'
 static void MainLoop() {
   while (true) {
-    fprintf(stderr, "ready> ");
+    fprintf(stderr, "ready> \n\r ");
     switch (CurTok) {
     case tok_eof:
       return;
@@ -439,9 +484,6 @@ int main() {
   // Prime the first token.
   fprintf(stderr, "ready> ");
   getNextToken();
-  int test = 10;
-  std::string s = std::to_string(CurTok);
-  fprintf(stderr, "test: %s \n\r", s.c_str());
   // Run the main "interpreter loop" now.
   MainLoop();
 
