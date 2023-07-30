@@ -7,7 +7,7 @@ use Wladimir\ParserExcel\Lexer\Lexer;
 use Wladimir\ParserExcel\Lexer\Token;
 use Wladimir\ParserExcel\Lexer\TokenType;
 
-final class TokensTest extends TestCase
+final class LexerTest extends TestCase
 {
     public function testString(): void
     {

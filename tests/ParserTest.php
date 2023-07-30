@@ -3,6 +3,12 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use Tests\Data\DummyVariableRepository;
+use Tests\Data\FakeLexer;
+use Wladimir\ParserExcel\AST\FunctionAST;
+use Wladimir\ParserExcel\Lexer\Token;
+use Wladimir\ParserExcel\Lexer\TokenType;
+use Wladimir\ParserExcel\Parser\Parser;
 
 final class ParserTest extends TestCase
 {
@@ -14,4 +20,14 @@ final class ParserTest extends TestCase
     // {
     //     $this->assertSame('2', '3');
     // }
+    public function testInt(): void
+    {
+        $repository  = new DummyVariableRepository();
+        $lexer = new FakeLexer([
+            new Token(TokenType::Int, 3),
+         ]);
+        $sut  = new Parser($this->repository, $lexer);
+        $sut->parse("");
+        $this->assertSame(new FunctionAST(), $sut);
+    }
 }
