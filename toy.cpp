@@ -362,8 +362,12 @@ static std::unique_ptr<ExprAST> ParseBinOpRHS(int ExprPrec,
 ///
 static std::unique_ptr<ExprAST> ParseExpression() {
   auto LHS = ParsePrimary();
-  if (!LHS)
+  if (!LHS) {
+    printDebug(
+        0, "---------- ParseExpression Пропускаем: ", std::to_string(CurTok));
     return nullptr;
+  }
+  printDebug(0, " --------- ParseExpression Парсим", std::to_string(CurTok));
 
   return ParseBinOpRHS(0, std::move(LHS));
 }
