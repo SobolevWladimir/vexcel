@@ -4,12 +4,14 @@ namespace Wladimir\ParserExcel\AST\Operator;
 
 use Wladimir\ParserExcel\Exceptions\UnsupportedError;
 use Wladimir\ParserExcel\AST\Expression;
+use Wladimir\ParserExcel\Lexer\Token;
 
 abstract class Operator implements Expression
 {
     public function __construct(
         protected Expression $leftExpression,
-        protected Expression $rightExpression
+        protected Expression $rightExpression,
+        protected Token $token,
     ) {
     }
 

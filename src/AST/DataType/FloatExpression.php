@@ -2,15 +2,10 @@
 
 namespace Wladimir\ParserExcel\AST\DataType;
 
-use Wladimir\ParserExcel\AST\Expression;
 use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
-class FloatExpression implements Expression
+class FloatExpression extends DataType
 {
-    public function __construct(private float $value)
-    {
-    }
-
     public function jsonSerialize(): mixed
     {
         return [
@@ -21,6 +16,6 @@ class FloatExpression implements Expression
 
     public function calculate(ValueRepositoryInterface $repository): mixed
     {
-        return $this->value;
+        return (float)$this->token->value;
     }
 }

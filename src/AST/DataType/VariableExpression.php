@@ -2,13 +2,12 @@
 
 namespace Wladimir\ParserExcel\AST\DataType;
 
-use Wladimir\ParserExcel\AST\Expression;
 use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
 /** @package Wladimir\ParserExcel\Expression\DataType */
-class VariableExpression implements Expression
+class VariableExpression extends DataType
 {
-    public function __construct(private string $identifier)
+    public function __construct(private string $identifier, protected Token $token)
     {
     }
 
@@ -16,7 +15,7 @@ class VariableExpression implements Expression
     {
         return [
         'type' => 'VariableExpression',
-        'value' => $this->value,
+        'value' => $this->identifier,
         ];
     }
 
