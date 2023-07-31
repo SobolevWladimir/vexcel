@@ -23,12 +23,4 @@ interface VariableRepositoryInterface
      * @return string
      */
     public function getNameByIdentifier(string $identificator): string;
-
-
-    /**
-  * Возвращает значение по идентификатору переменной;
-     * @param string $identificator
-     * @return mixed
-     */
-    public function getValueByIdentifier(string $identificator): mixed;
 }

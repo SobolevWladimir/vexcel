@@ -4,22 +4,27 @@ namespace Wladimir\ParserExcel\Parser;
 
 use Wladimir\ParserExcel\AST\FunctionAST;
 use Wladimir\ParserExcel\Lexer\Lexer;
+use Wladimir\ParserExcel\Lexer\Token;
 use Wladimir\ParserExcel\ParserInterface;
 use Wladimir\ParserExcel\Repository\EmptyVariableRepository;
 use Wladimir\ParserExcel\Repository\VariableRepositoryInterface;
 
 class Parser implements ParserInterface
 {
-    private VariableRepositoryInterface $repository;
+    // приоритет операторов
+    const BINOP_PRECEDENCE = [
+    '-' => 20,
+    '+' => 20,
+    '*' => 40,
+    '/' => 40,
+    '^' => 80,
+    ];
+    private $tokens = [];
+    private $currentPosition = 0;
     public function __construct(
-        ?VariableRepositoryInterface $repository,
-        private ?Lexer $lexer = null,
+        private Lexer $lexer = new Lexer(),
+        private VariableRepositoryInterface $repository = new EmptyVariableRepository(),
     ) {
-        if ($repository) {
-            $this->repository = $repository;
-        } else {
-            $this->repository  = new EmptyVariableRepository();
-        }
     }
     /**
      * @param string $code
@@ -27,6 +32,23 @@ class Parser implements ParserInterface
      */
     public function parse(string $code): FunctionAST
     {
+        $this->lexer->setCode($code);
+        $this->tokens = $this->lexer->getAllTokens();
         return new FunctionAST();
+    }
+
+    private function nextToken(): void
+    {
+        $this->currentPosition++;
+    }
+
+    private function getTokPrecedence(): int
+    {
+        return 0;
+    }
+
+    private function getCurrentToken(): Token
+    {
+        return $this->tokens[$this->currentPosition];
     }
 }

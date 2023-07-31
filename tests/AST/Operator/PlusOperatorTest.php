@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use Tests\Data\DummyVariableRepository;
+use Tests\Data\DummyValueRepository;
 use Wladimir\ParserExcel\AST\DataType\FloatExpression;
 use Wladimir\ParserExcel\AST\DataType\IntExpression;
 use Wladimir\ParserExcel\AST\DataType\StringExpression;
@@ -15,7 +15,7 @@ final class PlusOperatorTest extends TestCase
     {
         $left = new IntExpression(4);
         $rigth = new IntExpression(2);
-        $repository  = new DummyVariableRepository();
+        $repository  = new DummyValueRepository();
         $sut = new PlusOperator($left, $rigth);
         $value  = $sut->calculate($repository);
         $this->assertSame($value, 6);
@@ -26,7 +26,7 @@ final class PlusOperatorTest extends TestCase
     {
         $left = new FloatExpression(4.0);
         $rigth = new FloatExpression(2.0);
-        $repository  = new DummyVariableRepository();
+        $repository  = new DummyValueRepository();
         $sut = new PlusOperator($left, $rigth);
         $value  = $sut->calculate($repository);
         $this->assertSame($value, 6.0);
@@ -35,7 +35,7 @@ final class PlusOperatorTest extends TestCase
     {
         $left = new StringExpression("two");
         $rigth = new StringExpression("two");
-        $repository  = new DummyVariableRepository();
+        $repository  = new DummyValueRepository();
         $sut = new PlusOperator($left, $rigth);
         $value  = $sut->calculate($repository);
         $this->assertSame($value, "twotwo");

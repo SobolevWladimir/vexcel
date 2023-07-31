@@ -17,9 +17,19 @@ class Lexer
     private array $conditionalOperators  = ['!', '=', '<', '>'];
 
     private array $operators  = ['*', '/', '+', '-', '^'];
+    private string $text;
 
-    public function __construct(private string $text)
+    public function __construct()
     {
+    }
+
+    public function setCode($code): void
+    {
+        $this->text = $code;
+        $this->tokens = $this->parse();
+        $this->position = 0;
+        $this->column = 0;
+        $this->row = 0;
     }
 
     /**
@@ -27,9 +37,6 @@ class Lexer
      */
     public function getAllTokens(): array
     {
-        if (count($this->tokens) == 0) {
-            $this->tokens = $this->parse();
-        }
         return $this->tokens;
     }
 

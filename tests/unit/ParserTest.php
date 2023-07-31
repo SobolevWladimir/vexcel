@@ -25,7 +25,7 @@ final class ParserTest extends TestCase
         $lexer = new FakeLexer([
             new Token(TokenType::Int, 3),
          ]);
-        $sut  = new Parser(null, $lexer);
+        $sut  = new Parser(lexer: $lexer);
         $sut->parse("");
         $this->assertSame(1, 1);
     }
