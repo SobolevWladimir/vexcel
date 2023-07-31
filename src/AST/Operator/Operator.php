@@ -13,10 +13,21 @@ abstract class Operator implements Expression
     ) {
     }
 
+    abstract function getName(): string;
+
     public function getUnsupportedError(mixed $leftValue, mixed $rightValue): UnsupportedError
     {
         $leftType  = gettype($leftValue);
         $rightType  = gettype($rightValue);
         return new  UnsupportedError("Неподдерживаемые типы операндов  $leftType * $rightType");
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+        'type' => 'operator',
+        'leftExpression' => $this->leftExpression,
+        'rightExpression' => $this->leftExpression,
+        ];
     }
 }

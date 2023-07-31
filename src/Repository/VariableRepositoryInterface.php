@@ -2,7 +2,7 @@
 
 namespace Wladimir\ParserExcel\Repository;
 
-interface VariableRepository
+interface VariableRepositoryInterface
 {
     /**
     * Получение постоянного идентификатора переменной.

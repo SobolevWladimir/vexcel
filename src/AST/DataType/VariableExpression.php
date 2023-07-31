@@ -3,7 +3,7 @@
 namespace Wladimir\ParserExcel\AST\DataType;
 
 use Wladimir\ParserExcel\AST\Expression;
-use Wladimir\ParserExcel\Repository\VariableRepository;
+use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
 /** @package Wladimir\ParserExcel\Expression\DataType */
 class VariableExpression implements Expression
@@ -12,7 +12,15 @@ class VariableExpression implements Expression
     {
     }
 
-    public function calculate(VariableRepository $repository): mixed
+    public function jsonSerialize(): mixed
+    {
+        return [
+        'type' => 'VariableExpression',
+        'value' => $this->value,
+        ];
+    }
+
+    public function calculate(ValueRepositoryInterface $repository): mixed
     {
         return $repository->getValueByIdentifier($this->identifier);
     }

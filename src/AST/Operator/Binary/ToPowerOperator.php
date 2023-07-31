@@ -2,7 +2,7 @@
 
 namespace Wladimir\ParserExcel\AST\Operator\Binary;
 
-use Wladimir\ParserExcel\Repository\VariableRepository;
+use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 use Wladimir\ParserExcel\AST\Operator\Operator;
 
 /** Возвести в степень*/
@@ -13,7 +13,7 @@ class ToPowerOperator extends Operator
         return "^";
     }
 
-    public function calculate(VariableRepository $repository): mixed
+    public function calculate(ValueRepositoryInterface $repository): mixed
     {
         $left = $this->leftExpression->calculate($repository);
         $riht = $this->rightExpression->calculate($repository);
