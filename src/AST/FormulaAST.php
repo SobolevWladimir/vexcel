@@ -4,9 +4,11 @@ namespace Wladimir\ParserExcel\AST;
 
 use JsonSerializable;
 
-class FunctionAST implements JsonSerializable
+class FormulaAST implements JsonSerializable
 {
-    public Expression $body;
+    public function __construct(public Expression $body)
+    {
+    }
 
     public function jsonSerialize(): mixed
     {

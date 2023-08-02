@@ -8,7 +8,7 @@ use Wladimir\ParserExcel\AST\DataType\IntExpression;
 use Wladimir\ParserExcel\AST\DataType\StringExpression;
 use Wladimir\ParserExcel\AST\DataType\VariableExpression;
 use Wladimir\ParserExcel\AST\Expression;
-use Wladimir\ParserExcel\AST\FunctionAST;
+use Wladimir\ParserExcel\AST\FormulaAST;
 use Wladimir\ParserExcel\Exceptions\UnsupportedError;
 use Wladimir\ParserExcel\Lexer\Lexer;
 use Wladimir\ParserExcel\Lexer\Token;
@@ -36,13 +36,17 @@ class Parser implements ParserInterface
     }
     /**
      * @param string $code
-     * @return FunctionAST
+     * @return ?FormulaAST
      */
-    public function parse(string $code): FunctionAST
+    public function parse(string $code): ?FormulaAST
     {
         $this->lexer->setCode($code);
-        $tokens = $this->lexer->getAllTokens();
-        return new FunctionAST();
+        $this->tokens = $this->lexer->getAllTokens();
+        $body  = $this->parseExpression();
+        if ($body === null) {
+            return null;
+        }
+        return new FormulaAST($body);
     }
 
 
@@ -52,13 +56,20 @@ class Parser implements ParserInterface
     }
 
     /** получить приоритет текущего оператора  */
-    private function getTokPrecedence(): int
+    private function getTokPrecedence(Token $operatorToken): int
     {
-        return 0;
+        $operator  = (string)$operatorToken->value;
+        if (!array_key_exists($operator, self::BINOP_PRECEDENCE)) {
+            return -1;
+        }
+        return self::BINOP_PRECEDENCE[$operator];
     }
 
-    private function getCurrentToken(): Token
+    private function getCurrentToken(): ?Token
     {
+        if ($this->currentPosition >= count($this->tokens)) {
+            return null;
+        }
         return $this->tokens[$this->currentPosition];
     }
 
@@ -66,6 +77,9 @@ class Parser implements ParserInterface
     private function parsePrimary(): ?Expression
     {
         $token = $this->getCurrentToken();
+        if (!$token) {
+            return null;
+        }
         switch ($token->type) {
             case TokenType::String:
                 return $this->parseStringExpr();
@@ -137,7 +151,40 @@ class Parser implements ParserInterface
 
     private function parseExpression(): ?Expression
     {
-        throw new Exception('пока не сделал');
+        $lhs = $this->parsePrimary();
+        if ($lhs === null) {
+            return null;
+        }
+
+        return $this->parseBinOpRHS(0, $lhs);
+    }
+
+    private function parseBinOpRHS(int $exprPrec, Expression $lhs): ?Expression
+    {
+        while (true) {
+            $operator = $this->getCurrentToken();
+            if (!$operator) {
+                return $lhs;
+            }
+            $tokPrec  = $this->getTokPrecedence($operator);
+            if ($tokPrec < $exprPrec) {
+                return $lhs;
+            }
+            $this->nextToken();
+            $rhs  = $this->parsePrimary();
+            if (!$rhs) {
+                return null;
+            }
+            $nextToken  = $this->getCurrentToken();
+            $nextPrec = $this->getTokPrecedence($nextToken);
+            if ($tokPrec < $nextToken) {
+                $rhs = $this->parseBinOpRHS($tokPrec + 1, $rhs);
+                if (!$rhs) {
+                    return null;
+                }
+            }
+           //TODO: тут надо создать Бинарный оператор
+        }
     }
 
     private function logError(string $error, Token $token)

@@ -2,6 +2,7 @@
 
 namespace Wladimir\ParserExcel\AST\DataType;
 
+use Wladimir\ParserExcel\Lexer\Token;
 use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
 /** @package Wladimir\ParserExcel\Expression\DataType */

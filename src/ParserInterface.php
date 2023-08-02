@@ -2,9 +2,9 @@
 
 namespace Wladimir\ParserExcel;
 
-use Wladimir\ParserExcel\AST\FunctionAST;
+use Wladimir\ParserExcel\AST\FormulaAST;
 
 interface ParserInterface
 {
-    public function parse(string $code): FunctionAST;
+    public function parse(string $code): ?FormulaAST;
 }
