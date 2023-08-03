@@ -14,7 +14,7 @@ class Lexer
     /** @val Token[] $tokens*/
     private array $tokens = [];
 
-    private array $conditionalOperators  = ['!', '=', '<', '>'];
+    private array $conditionalOperators  = ['=', '<', '>'];
 
     private array $operators  = ['*', '/', '+', '-', '^'];
     private string $text;
