@@ -3,6 +3,7 @@
 namespace Wladimir\ParserExcel\AST;
 
 use JsonSerializable;
+use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
 class FormulaAST implements JsonSerializable
 {
@@ -10,6 +11,10 @@ class FormulaAST implements JsonSerializable
     {
     }
 
+    public function calculate(?ValueRepositoryInterface $repository = null): mixed
+    {
+        return $this->body->calculate($repository);
+    }
     public function jsonSerialize(): mixed
     {
         return [

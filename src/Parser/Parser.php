@@ -177,13 +177,16 @@ class Parser implements ParserInterface
                 return null;
             }
             $nextToken  = $this->getCurrentToken();
-            $nextPrec = $this->getTokPrecedence($nextToken);
-            if ($tokPrec < $nextPrec) {
-                $rhs = $this->parseBinOpRHS($tokPrec + 1, $rhs);
-                if (!$rhs) {
-                    return null;
+            if ($nextToken) {
+                  $nextPrec = $this->getTokPrecedence($nextToken);
+                if ($tokPrec < $nextPrec) {
+                    $rhs = $this->parseBinOpRHS($tokPrec + 1, $rhs);
+                    if (!$rhs) {
+                        return null;
+                    }
                 }
             }
+
             $lhs = new Operator($operator, $lhs, $rhs);
         }
     }

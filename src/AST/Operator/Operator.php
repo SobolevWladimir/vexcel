@@ -9,13 +9,6 @@ use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
 class Operator implements Expression
 {
-    const HANDLERS = [
-      '/' => $this->calculateDivide,
-      '*' => $this->calculateMultiple,
-      '-' => $this->calculateMinus,
-      '+' => $this->calculatePlus,
-      '^' => $this->calculatePlus,
-    ];
     public function __construct(
         protected Token $token,
         protected Expression $leftExpression,
@@ -25,14 +18,22 @@ class Operator implements Expression
 
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
-        if (!array_key_exists($this->token->value, self::HANDLERS)) {
-            return new  UnsupportedError("Неизвестный оператор: " . $this->token->value);
-        }
-
         $left = $this->leftExpression->calculate($repository);
         $right = $this->rightExpression->calculate($repository);
-        $handler  = self::HANDLERS[$this->token->value];
-        return $handler($left, $right);
+        switch ($this->token->value) {
+            case "/":
+                return $this->calculateDivide($left, $right);
+            case "*":
+                return $this->calculateMultiple($left, $right);
+            case "-":
+                return $this->calculateMinus($left, $right);
+            case "+":
+                return $this->calculatePlus($left, $right);
+            case "^":
+                return $this->calculateToPower($left, $right);
+        }
+
+           throw new  UnsupportedError("Неизвестный оператор: " . $this->token->value);
     }
 
 

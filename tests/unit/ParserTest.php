@@ -26,7 +26,32 @@ final class ParserTest extends TestCase
             new Token(TokenType::Int, 3),
          ]);
         $sut  = new Parser(lexer: $lexer);
-        $sut->parse("");
-        $this->assertSame(1, 1);
+        $formula = $sut->parse("");
+
+        $this->assertSame($formula->calculate(), 3);
+    }
+
+    public function testFloat(): void
+    {
+        $lexer = new FakeLexer([
+            new Token(TokenType::Float, 3.0),
+         ]);
+        $sut  = new Parser(lexer: $lexer);
+        $formula = $sut->parse("");
+
+        $this->assertSame($formula->calculate(), 3);
+    }
+
+    public function testSumm(): void
+    {
+        $lexer = new FakeLexer([
+            new Token(TokenType::Float, 3.0),
+            new Token(TokenType::BinaryOperator, "+"),
+            new Token(TokenType::Float, 3.0),
+         ]);
+        $sut  = new Parser(lexer: $lexer);
+        $formula = $sut->parse("");
+
+        $this->assertSame($formula->calculate(), 6);
     }
 }
