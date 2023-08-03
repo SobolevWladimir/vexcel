@@ -27,6 +27,9 @@ class Parser implements ParserInterface
     '*' => 40,
     '/' => 40,
     '^' => 80,
+    '=' => 20,
+    '<' => 20,
+    '>' => 20,
     ];
     private $tokens = [];
     private $currentPosition = 0;

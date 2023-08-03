@@ -120,7 +120,32 @@ final class ParserTest extends TestCase
          ]);
         $sut  = new Parser(lexer: $lexer);
         $formula = $sut->parse("");
-
         $this->assertSame($formula->calculate(), 12);
+    }
+
+    public function testConditionTrue(): void
+    {
+        $lexer = new FakeLexer([
+            new Token(TokenType::Float, 3.0),
+            new Token(TokenType::ConditionalOperator, "="),
+            new Token(TokenType::Float, 3.0),
+         ]);
+        $sut  = new Parser(lexer: $lexer);
+        $formula = $sut->parse("");
+
+        $this->assertSame($formula->calculate(), true);
+    }
+
+    public function testConditionFalse(): void
+    {
+        $lexer = new FakeLexer([
+            new Token(TokenType::Float, 2.0),
+            new Token(TokenType::ConditionalOperator, "="),
+            new Token(TokenType::Float, 3.0),
+         ]);
+        $sut  = new Parser(lexer: $lexer);
+        $formula = $sut->parse("");
+
+        $this->assertSame($formula->calculate(), false);
     }
 }

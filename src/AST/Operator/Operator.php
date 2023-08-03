@@ -31,6 +31,12 @@ class Operator implements Expression
                 return $this->calculatePlus($left, $right);
             case "^":
                 return $this->calculateToPower($left, $right);
+            case "=":
+                return $this->calculateEqual($left, $right);
+            case ">":
+                return $this->calculateMore($left, $right);
+            case "<":
+                return $this->calculateMore($left, $right);
         }
 
            throw new  UnsupportedError("Неизвестный оператор: " . $this->token->value);
@@ -91,5 +97,20 @@ class Operator implements Expression
             return pow($left, $right);
         }
         throw $this->getUnsupportedError($left, $right);
+    }
+
+    public function calculateEqual($left, $riht): bool
+    {
+        return $left  == $riht;
+    }
+
+    public function calculateMore($left, $riht): bool
+    {
+        return $left  > $riht;
+    }
+
+    public function calculateLess($left, $riht): bool
+    {
+        return $left  < $riht;
     }
 }
