@@ -14,7 +14,7 @@ class StringExpression extends DataType
         ];
     }
 
-    public function calculate(ValueRepositoryInterface $repository): mixed
+    public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
         return (string)$this->token->value;
     }

@@ -21,7 +21,7 @@ class OperatorConditional implements Expression
     ) {
     }
 
-    public function calculate(ValueRepositoryInterface $repository): mixed
+    public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
         if (!array_key_exists($this->token->value, self::HANDLERS)) {
             return new  UnsupportedError("Неизвестный оператор: " . $this->token->value);

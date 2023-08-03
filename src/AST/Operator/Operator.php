@@ -23,13 +23,16 @@ class Operator implements Expression
     ) {
     }
 
-    public function calculate(ValueRepositoryInterface $repository): mixed
+    public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
         if (!array_key_exists($this->token->value, self::HANDLERS)) {
             return new  UnsupportedError("Неизвестный оператор: " . $this->token->value);
         }
+
+        $left = $this->leftExpression->calculate($repository);
+        $right = $this->rightExpression->calculate($repository);
         $handler  = self::HANDLERS[$this->token->value];
-        return $handler($repository);
+        return $handler($left, $right);
     }
 
 
@@ -49,53 +52,43 @@ class Operator implements Expression
         ];
     }
 
-    public function calculateDivide(ValueRepositoryInterface $repository): mixed
+    public function calculateDivide(mixed $left, mixed $right): mixed
     {
-        $left = $this->leftExpression->calculate($repository);
-        $riht = $this->rightExpression->calculate($repository);
-        if (is_numeric($left) && is_numeric($riht)) {
-            return $left / $riht;
+        if (is_numeric($left) && is_numeric($right)) {
+            return $left / $right;
         }
-        throw $this->getUnsupportedError($left, $riht);
+        throw $this->getUnsupportedError($left, $right);
     }
 
-    public function calculateMultiple(ValueRepositoryInterface $repository): mixed
+    public function calculateMultiple(mixed $left, mixed $right): mixed
     {
-        $left = $this->leftExpression->calculate($repository);
-        $riht = $this->rightExpression->calculate($repository);
-        if (is_numeric($left) && is_numeric($riht)) {
-            return $left * $riht;
+        if (is_numeric($left) && is_numeric($right)) {
+            return $left * $right;
         }
-        throw $this->getUnsupportedError($left, $riht);
+        throw $this->getUnsupportedError($left, $right);
     }
 
-    public function calculateMinus(ValueRepositoryInterface $repository): mixed
+    public function calculateMinus(mixed $left, mixed $right): mixed
     {
-        $left = $this->leftExpression->calculate($repository);
-        $riht = $this->rightExpression->calculate($repository);
-        if (is_numeric($left) && is_numeric($riht)) {
-            return $left - $riht;
+        if (is_numeric($left) && is_numeric($right)) {
+            return $left - $right;
         }
-        throw $this->getUnsupportedError($left, $riht);
+        throw $this->getUnsupportedError($left, $right);
     }
 
-    public function calculatePlus(ValueRepositoryInterface $repository): mixed
+    public function calculatePlus(mixed $left, mixed $right): mixed
     {
-        $left = $this->leftExpression->calculate($repository);
-        $riht = $this->rightExpression->calculate($repository);
-        if (is_numeric($left) && is_numeric($riht)) {
-            return $left + $riht;
+        if (is_numeric($left) && is_numeric($right)) {
+            return $left + $right;
         }
-        return $left . $riht;
+        return $left . $right;
     }
 
-    public function calculateToPower(ValueRepositoryInterface $repository): mixed
+    public function calculateToPower(mixed $left, mixed $right): mixed
     {
-        $left = $this->leftExpression->calculate($repository);
-        $riht = $this->rightExpression->calculate($repository);
-        if (is_numeric($left) && is_numeric($riht)) {
-            return pow($left, $riht);
+        if (is_numeric($left) && is_numeric($right)) {
+            return pow($left, $right);
         }
-        throw $this->getUnsupportedError($left, $riht);
+        throw $this->getUnsupportedError($left, $right);
     }
 }

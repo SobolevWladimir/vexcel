@@ -15,7 +15,7 @@ class IntExpression extends DataType
         ];
     }
 
-    public function calculate(ValueRepositoryInterface $repository): mixed
+    public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
         return (int)$this->token->value;
     }

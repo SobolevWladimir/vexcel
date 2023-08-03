@@ -12,5 +12,5 @@ interface Expression extends \JsonSerializable
      * @param VariableRepository $repository
      * @return mixed
      */
-    public function calculate(ValueRepositoryInterface $repository): mixed;
+    public function calculate(?ValueRepositoryInterface $repository = null): mixed;
 }

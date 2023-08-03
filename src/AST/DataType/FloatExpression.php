@@ -14,7 +14,7 @@ class FloatExpression extends DataType
         ];
     }
 
-    public function calculate(ValueRepositoryInterface $repository): mixed
+    public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
         return (float)$this->token->value;
     }
