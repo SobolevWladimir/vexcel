@@ -9,6 +9,7 @@ use Wladimir\ParserExcel\AST\DataType\StringExpression;
 use Wladimir\ParserExcel\AST\DataType\VariableExpression;
 use Wladimir\ParserExcel\AST\Expression;
 use Wladimir\ParserExcel\AST\FormulaAST;
+use Wladimir\ParserExcel\AST\Operator\Operator;
 use Wladimir\ParserExcel\Exceptions\UnsupportedError;
 use Wladimir\ParserExcel\Lexer\Lexer;
 use Wladimir\ParserExcel\Lexer\Token;
@@ -177,13 +178,13 @@ class Parser implements ParserInterface
             }
             $nextToken  = $this->getCurrentToken();
             $nextPrec = $this->getTokPrecedence($nextToken);
-            if ($tokPrec < $nextToken) {
+            if ($tokPrec < $nextPrec) {
                 $rhs = $this->parseBinOpRHS($tokPrec + 1, $rhs);
                 if (!$rhs) {
                     return null;
                 }
             }
-           //TODO: тут надо создать Бинарный оператор
+            $lhs = new Operator($operator, $lhs, $rhs);
         }
     }
 

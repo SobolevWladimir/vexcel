@@ -17,9 +17,9 @@ class Operator implements Expression
       '^' => $this->calculatePlus,
     ];
     public function __construct(
+        protected Token $token,
         protected Expression $leftExpression,
         protected Expression $rightExpression,
-        protected Token $token,
     ) {
     }
 
