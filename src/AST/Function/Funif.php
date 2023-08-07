@@ -15,7 +15,11 @@ class Funif extends AbstractFunction
 
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
-        return null;
+        $condition = $this->args[0]->calculate($repository);
+        if ($condition) {
+            return $this->args[1]->calculate($repository);
+        }
+        return $this->args[2]->calculate($repository);
     }
 
     public function jsonSerialize(): mixed
