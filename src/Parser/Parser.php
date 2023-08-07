@@ -146,7 +146,7 @@ class Parser implements ParserInterface
         }
         $token = $this->getCurrentToken();
         if ($token->type != TokenType::Parentheses && $token->value !== ")") {
-            $this->logError('Ожидается )', $token);
+            $this->logError('Ожидается ")"', $token);
             return null;
         }
         return $expression;
