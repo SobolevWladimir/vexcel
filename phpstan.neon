@@ -2,54 +2,20 @@
 #includes:
 #  - phpstan-baseline.neon
 
-includes:
-  - vendor/spaze/phpstan-disallowed-calls/extension.neon
-
 parameters:
-  # See https://phpstan.org/user-guide/rule-levels
   level: 8
-  parallel:
-    maximumNumberOfProcesses: 6
-    processTimeout: 900.0
-  tmpDir: build/shared_cache/phpstan
   reportUnmatchedIgnoredErrors: false
-  disallowedFunctionCalls:
-    - function: 'exit()'
-      message: 'Return action response OR `throw new \RuntimeException("Human-readable error message with {$context}");`'
-    - function: 'die()'
-      message: 'Return action response OR `throw new \RuntimeException("Human-readable error message with {$context}");`'
-  bootstrapFiles:
-    - includes/defines.php
-    - includes/initials.php
+  checkGenericClassInNonGenericObjectType: false
   fileExtensions:
     - php
   scanDirectories:
-    - includes
-    - core
-    - migrations
-    - models
-    - modules
-    - plugins
-    - tools
     - src
     - tests
   excludePaths:
-    - '*/build/*'
-    - '*/cache/*'
-    - '*/config/*'
-    - '*/uploads/*'
-    - '*/node_modules/*'
-    - '*/vendor/*'
-    # Bootstrap file has specific logic and conditions
-    - '*/includes/defines.php'
-    - '*/includes/initials.php'
-    # For some reason it can't be parsed.
-    # Excluded due to the lack of a CryptoPro module
-    - '*/modules/Cryptopro/controller.php'
-    # Excluded due to problems accessing the Asupp database
-    - '*/modules/Asupp/Forms/model.php'
-    # В ближайшую переделку
-    - '*/modules/ProductionCalcOld/Month/model.php'
-    - '*/modules/Total/Production/controller.php'
-    - '*/modules/Total/Production/Old/model.php'
-    - '*/modules/Total/Production/model.php'
+    - .git/*
+    - bin/*
+    - docker/*
+    - docs/*
+    - public/*
+    - vendor/*
+    - var/*

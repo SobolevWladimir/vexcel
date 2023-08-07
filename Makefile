@@ -2,9 +2,18 @@
 .DEFAULT_GOAL = help
 .PHONY        : help build up start down logs sh composer vendor sf cc
 
+# Configs
+PARALLEL_NUM        ?= 6
+PHP_MEMORY_LIMIT    ?= 2G
+PHPCPD_MIN_LINES    ?= 20
+FLOW_ID             := $(shell date +"%H%M%S")
+
+
 PHP_CONT = php
 
 PATH_ROOT    ?= `pwd`
+PATH_BUILD   ?= $(PATH_ROOT)/build
+
 
 PHP_BIN      ?= php
 PHP_BIN_CONF ?= XDEBUG_MODE=coverage    \
@@ -58,16 +67,11 @@ test-phpcsfixer-diff: ##@Testing PHP-CS-Fixer - Checking code to follow standard
 test-phpstan: ##@Testing PHPStan - Static Analysis Tool
 	$(call title,"PHPStan - Static Analysis Tool")
 	@echo "Src Path: $(PATH_SRC)"
-	@$(VENDOR_BIN)/phpstan analyse                                      \
+	@$(VENDOR_BIN)/phpstan analyse                                        \
         --configuration="$(PATH_ROOT)/phpstan.neon"                     \
         --memory-limit=$(PHP_MEMORY_LIMIT)                              \
-        --error-format="checkstyle"                                     \
+				--error-format=table                                            \
         --no-ansi                                                       \
-        "$(PATH_SRC)" > "$(PATH_BUILD)/phpstan-checkstyle.xml"          || true
-	@$(CI_REPORT_CONVERTER)                                             \
-        --input-format="checkstyle"                                     \
-        --input-file="$(PATH_BUILD)/phpstan-checkstyle.xml"             \
-        --output-format="plain"                                         \
-        --non-zero-code=yes
+				 "$(PATH_SRC)"
 
 
