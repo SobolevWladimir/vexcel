@@ -9,8 +9,8 @@ class FloatExpression extends DataType
     public function jsonSerialize(): mixed
     {
         return [
-        'type' => 'FloatExpression',
-        'value' => $this->value,
+            'type'  => 'FloatExpression',
+            'value' => $this->value,
         ];
     }
 

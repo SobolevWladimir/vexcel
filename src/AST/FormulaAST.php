@@ -2,10 +2,9 @@
 
 namespace Wladimir\ParserExcel\AST;
 
-use JsonSerializable;
 use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
-class FormulaAST implements JsonSerializable
+class FormulaAST implements \JsonSerializable
 {
     public function __construct(public Expression $body)
     {
@@ -15,10 +14,11 @@ class FormulaAST implements JsonSerializable
     {
         return $this->body->calculate($repository);
     }
+
     public function jsonSerialize(): mixed
     {
         return [
-        'body' => $this->body
+            'body' => $this->body,
         ];
     }
 }

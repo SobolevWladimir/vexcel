@@ -11,7 +11,7 @@ class FunctionBuilder
 {
     public function build(Token $token, array $args): AbstractFunction
     {
-        if ($token->value == "ЕСЛИ") {
+        if ($token->value == 'ЕСЛИ') {
             return new Funif($token, $args);
         }
         throw new SyntaxError('Неизвестная функция: ' . $token->value, $token);

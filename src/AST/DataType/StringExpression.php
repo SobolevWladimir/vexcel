@@ -9,8 +9,8 @@ class StringExpression extends DataType
     public function jsonSerialize(): mixed
     {
         return [
-        'type' => 'StringExpression',
-        'value' => $this->value,
+            'type'  => 'StringExpression',
+            'value' => $this->value,
         ];
     }
 

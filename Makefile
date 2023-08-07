@@ -36,6 +36,13 @@ test-phpcsfixer: ##@Testing PHP-CS-Fixer - Checking code to follow standards
         --dry-run                                              \
         --diff                                                 
 
+test-phpcsfixer-fix: ##@CI PHP-CS-Fixer - Auto fix code to follow standards
+	$(call title,"Fix Coding Standards with PHP-CS-Fixer")
+	@echo "Src Path: $(PATH_SRC)"
+	@PHP_CS_FIXER_IGNORE_ENV=1 $(VENDOR_BIN)/php-cs-fixer fix  \
+        --config="$(PATH_ROOT)/.php-cs-fixer.php"              \
+        -vvv
+
 
 test-phpcsfixer-diff: ##@Testing PHP-CS-Fixer - Checking code to follow standards (diff output)
 	$(call title,"PHP-CS-Fixer checking code to follow standards \(diff output\)")

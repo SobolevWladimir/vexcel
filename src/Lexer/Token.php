@@ -15,10 +15,10 @@ class Token implements \JsonSerializable
     public function jsonSerialize(): mixed
     {
         return [
-        'type' => $this->type,
-        'value' => $this->value,
-        'row' => $this->row,
-        'column' => $this->column,
+            'type'   => $this->type,
+            'value'  => $this->value,
+            'row'    => $this->row,
+            'column' => $this->column,
         ];
     }
 }

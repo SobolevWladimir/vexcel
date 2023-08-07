@@ -6,8 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 final class FullTest extends TestCase
 {
-    public function testInt()
+    public function testInt(): void
     {
-        $this->assertSame(1, 1);
+        self::assertSame(1, 1);
     }
 }

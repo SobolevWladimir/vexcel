@@ -5,7 +5,6 @@ namespace Wladimir\ParserExcel\AST\DataType;
 use Wladimir\ParserExcel\Lexer\Token;
 use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
-/** @package Wladimir\ParserExcel\Expression\DataType */
 class VariableExpression extends DataType
 {
     public function __construct(private string $identifier, protected Token $token)
@@ -15,8 +14,8 @@ class VariableExpression extends DataType
     public function jsonSerialize(): mixed
     {
         return [
-        'type' => 'VariableExpression',
-        'value' => $this->identifier,
+            'type'  => 'VariableExpression',
+            'value' => $this->identifier,
         ];
     }
 
