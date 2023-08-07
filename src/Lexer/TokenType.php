@@ -13,4 +13,5 @@ enum TokenType: string
     case Variable = 'variable';
     case Parentheses = 'parentheses';
     case Separator = 'separator';
+    case Unknown = 'unknown';
 }

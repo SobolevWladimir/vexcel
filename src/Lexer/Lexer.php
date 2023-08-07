@@ -85,7 +85,10 @@ class Lexer
             }
             if ($currentSymbol !== " "  && $currentSymbol !== "" && !$this->isNewLine()) {
                 $symbol = $currentSymbol;
-                throw new SyntaxError("Неизвестный символ: $symbol", 400, $this->row, $this->column);
+                throw new SyntaxError(
+                    "Неизвестный символ: $symbol",
+                    new Token(TokenType::Unknown, $currentSymbol, $this->row, $this->column)
+                );
             }
 
             $this->nextSymbol();

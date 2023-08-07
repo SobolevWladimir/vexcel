@@ -9,6 +9,8 @@ use Wladimir\ParserExcel\AST\DataType\StringExpression;
 use Wladimir\ParserExcel\AST\DataType\VariableExpression;
 use Wladimir\ParserExcel\AST\Expression;
 use Wladimir\ParserExcel\AST\FormulaAST;
+use Wladimir\ParserExcel\AST\FunctionBuilder;
+use Wladimir\ParserExcel\AST\Function\AbstractFunction;
 use Wladimir\ParserExcel\AST\Operator\Operator;
 use Wladimir\ParserExcel\Exceptions\SyntaxError;
 use Wladimir\ParserExcel\Exceptions\UnsupportedError;
@@ -70,6 +72,14 @@ class Parser implements ParserInterface
         return self::BINOP_PRECEDENCE[$operator];
     }
 
+    private function isEnd(): bool
+    {
+        if ($this->currentPosition >= count($this->tokens)) {
+            return true;
+        }
+        return false;
+    }
+
     private function getCurrentToken(): ?Token
     {
         if ($this->currentPosition >= count($this->tokens)) {
@@ -93,7 +103,7 @@ class Parser implements ParserInterface
             case TokenType::Float:
                 return $this->parseFloatExpr();
             case TokenType::Function:
-                break;
+                return $this->parseFuntion();
             case TokenType::Variable:
                 return $this->parseVariableExpr();
             case TokenType::Parentheses:
@@ -136,6 +146,32 @@ class Parser implements ParserInterface
         $identifier = $this->repository->getIdentifierByName((string)$currentToken->value);
         $this->nextToken();
         return new VariableExpression($identifier, $currentToken);
+    }
+
+    private function parseFuntion(): ?AbstractFunction
+    {
+        $fun  = $this->getCurrentToken();
+        $this->nextToken();
+        $args  = [];
+
+        while ($this->isEnd()) {
+            $expression = $this->parseExpression();
+            if (!$expression) {
+                return null;
+            }
+            $args[] = $expression;
+            $token = $this->getCurrentToken();
+            if ($token === TokenType::Parentheses && $token->value === ")") {
+                break;
+            }
+
+            if ($token->type != TokenType::Separator) {
+                $this->logError('Ожидается ")" или ";"', $token);
+            }
+            $this->nextToken();
+        }
+        $buider = new FunctionBuilder();
+        return $buider->build($fun, $args);
     }
 
     private function parseParenthesesExpr(): ?Expression
