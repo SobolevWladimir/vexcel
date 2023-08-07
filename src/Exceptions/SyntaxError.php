@@ -3,23 +3,24 @@
 namespace Wladimir\ParserExcel\Exceptions;
 
 use Exception;
+use Wladimir\ParserExcel\Lexer\Token;
 
 class SyntaxError extends Exception
 {
-    public function __construct(string $message, int $code, private int $row, private int $column)
+    public function __construct(string $message, private Token $token, int $code = 400,)
     {
-        $mess  = "Синтаксическая ошибка! $message. строка: {$this->row}, колонка: {$this->column}";
+        $mess  = "Синтаксическая ошибка! $message. строка: {$this->token->row}, колонка: {$this->token->column}";
         parent::__construct($mess, $code);
     }
 
 
     public function getRow(): int
     {
-        return $this->row;
+        return $this->token->row;
     }
 
     public function getColumn(): int
     {
-        return $this->column;
+        return $this->token->column;
     }
 }

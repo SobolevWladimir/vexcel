@@ -262,7 +262,7 @@ class Lexer
             $this->nextSymbol();
         }
         if ($isFunction) {
-            return new Token(TokenType::Function, $result, $startRow, $startColumnt);
+            return new Token(TokenType::Function, strtoupper($result), $startRow, $startColumnt);
         }
         return new Token(TokenType::Variable, $result, $startRow, $startColumnt);
     }

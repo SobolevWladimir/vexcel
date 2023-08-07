@@ -10,6 +10,7 @@ use Wladimir\ParserExcel\AST\DataType\VariableExpression;
 use Wladimir\ParserExcel\AST\Expression;
 use Wladimir\ParserExcel\AST\FormulaAST;
 use Wladimir\ParserExcel\AST\Operator\Operator;
+use Wladimir\ParserExcel\Exceptions\SyntaxError;
 use Wladimir\ParserExcel\Exceptions\UnsupportedError;
 use Wladimir\ParserExcel\Lexer\Lexer;
 use Wladimir\ParserExcel\Lexer\Token;
@@ -194,9 +195,8 @@ class Parser implements ParserInterface
         }
     }
 
-    private function logError(string $error, Token $token)
+    private function logError(string $error, Token $token): void
     {
-
-        throw new Exception($error);
+        throw new SyntaxError($error, $token);
     }
 }
