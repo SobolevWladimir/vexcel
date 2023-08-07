@@ -154,19 +154,19 @@ class Parser implements ParserInterface
         $this->nextToken();
         $args  = [];
 
-        while ($this->isEnd()) {
+        while (!$this->isEnd()) {
             $expression = $this->parseExpression();
             if (!$expression) {
-                return null;
+                break;
             }
             $args[] = $expression;
             $token = $this->getCurrentToken();
-            if ($token === TokenType::Parentheses && $token->value === ")") {
+            if ($token->type === TokenType::Parentheses && $token->value === ")") {
                 break;
             }
 
             if ($token->type != TokenType::Separator) {
-                $this->logError('Ожидается ")" или ";"', $token);
+                $this->logError('Ожидается ")" или ";". Дано: ' . $token->value, $token);
             }
             $this->nextToken();
         }
