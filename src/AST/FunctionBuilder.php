@@ -22,6 +22,11 @@ class FunctionBuilder
         if ($token->value == 'ЕСЛИ') {
             return new Funif($token, $args);
         }
+        //НЕ
+        //Округлить
+        //ИЛИ
+    //ЛОЖЬ Возвращает логическое значение ЛОЖЬ.
+    //ИСТИНА - Возвращает логическое значение ИСТИНА.
         throw new SyntaxError('Неизвестная функция: ' . $token->value, $token);
     }
 }
