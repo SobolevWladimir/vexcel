@@ -24,7 +24,6 @@ final class ParserFunctionTest extends TestCase
         $sut = new Parser(lexer: $lexer);
         $formula = $sut->parse('');
 
-        self::assertTrue($formula !== null);
         self::assertSame($formula->calculate(), 3);
     }
 
@@ -42,7 +41,6 @@ final class ParserFunctionTest extends TestCase
         $sut = new Parser(lexer: $lexer);
         $formula = $sut->parse('');
 
-        self::assertTrue($formula !== null);
         self::assertSame($formula->calculate(), 2);
     }
 
@@ -62,7 +60,6 @@ final class ParserFunctionTest extends TestCase
         $sut = new Parser(lexer: $lexer);
         $formula = $sut->parse('');
 
-        self::assertTrue($formula !== null);
         self::assertSame($formula->calculate(), 3);
     }
 
@@ -82,7 +79,6 @@ final class ParserFunctionTest extends TestCase
         $sut = new Parser(lexer: $lexer);
         $formula = $sut->parse('');
 
-        self::assertTrue($formula !== null);
         self::assertSame($formula->calculate(), 2);
     }
 }
