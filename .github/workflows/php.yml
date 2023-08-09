@@ -17,9 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Composer update keys 
-      run: composer self-update --update-keys 
-
     - name: Validate composer.json and composer.lock
       run: composer  validate --strict
 
@@ -28,9 +25,6 @@ jobs:
 
     - name: Composer - List of outdated packages 
       run: composer outdated --direct 
-
-    - name: Composer diagnose 
-      run: composer diagnose
 
     - name: Cache Composer packages
       id: composer-cache
