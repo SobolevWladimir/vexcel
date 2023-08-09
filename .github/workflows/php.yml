@@ -17,6 +17,18 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Validate composer.json and composer.lock
+      run: composer  validate --strict
+
+    - name: Validate platform reqs 
+      run: composer  check-platform-reqs
+
+    - name: Composer - List of outdated packages 
+      run: composer outdated --direct 
+
+    - name: Composer diagnose 
+      run: composer diagnose
+
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v3
@@ -28,10 +40,6 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
-
-    - name: Validate composer.json and composer.lock
-      run: make  test-composer
-
     - name: Run phpunit 
       run: make  test-phpunit
 
