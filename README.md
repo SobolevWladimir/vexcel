@@ -1,4 +1,4 @@
 <h1 align="center">
-  <img src="/logo.svg" alt="vexcel">
+  <img src="./logo.png" alt="vexcel">
 
 </h1>
