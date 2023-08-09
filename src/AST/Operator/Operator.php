@@ -44,7 +44,7 @@ class Operator implements Expression
                 return $this->calculateMore($left, $right);
 
             case '<':
-                return $this->calculateMore($left, $right);
+                return $this->calculateLess($left, $right);
         }
 
         throw new UnsupportedError('Неизвестный оператор: ' . $this->token->value);
