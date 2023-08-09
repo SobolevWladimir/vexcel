@@ -1,7 +1,17 @@
 {
-  "name": "wladimir/parser-excel",
+  "name": "wladimir/vexcel",
   "description": "Parse excel formula to syntax tree",
-  "type": "project",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "parser",
+    "excel",
+    "formula",
+    "syntax",
+    "tree"
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "Wladimir\\ParserExcel\\": "src/"
@@ -14,7 +24,8 @@
   },
   "authors": [
     {
-      "name": "Владимир Соболев"
+      "name": "Владимир Соболев",
+      "email": "sobolev.wladim@gmail.com"
     }
   ],
   "require-dev": {
