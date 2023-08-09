@@ -10,7 +10,7 @@ class IntExpression extends DataType
     {
         return [
             'type'  => 'IntExpression',
-            'value' => $this->value,
+            'token' => $this->token,
         ];
     }
 

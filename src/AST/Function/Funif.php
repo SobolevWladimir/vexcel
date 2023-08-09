@@ -24,5 +24,6 @@ class Funif extends AbstractFunction
 
     public function jsonSerialize(): mixed
     {
+    return [];
     }
 }

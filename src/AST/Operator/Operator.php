@@ -50,6 +50,11 @@ class Operator implements Expression
         throw new UnsupportedError('Неизвестный оператор: ' . $this->token->value);
     }
 
+    /**
+     * @param mixed $leftValue 
+     * @param mixed $rightValue 
+     * @return UnsupportedError 
+     */
     public function getUnsupportedError(mixed $leftValue, mixed $rightValue): UnsupportedError
     {
         $leftType = \gettype($leftValue);
@@ -67,6 +72,12 @@ class Operator implements Expression
         ];
     }
 
+    /**
+     * @param mixed $left 
+     * @param mixed $right 
+     * @return mixed 
+     * @throws UnsupportedError 
+     */
     public function calculateDivide(mixed $left, mixed $right): mixed
     {
         if (is_numeric($left) && is_numeric($right)) {
@@ -75,6 +86,12 @@ class Operator implements Expression
         throw $this->getUnsupportedError($left, $right);
     }
 
+    /**
+     * @param mixed $left 
+     * @param mixed $right 
+     * @return mixed 
+     * @throws UnsupportedError 
+     */
     public function calculateMultiple(mixed $left, mixed $right): mixed
     {
         if (is_numeric($left) && is_numeric($right)) {
@@ -83,6 +100,12 @@ class Operator implements Expression
         throw $this->getUnsupportedError($left, $right);
     }
 
+    /**
+     * @param mixed $left 
+     * @param mixed $right 
+     * @return mixed 
+     * @throws UnsupportedError 
+     */
     public function calculateMinus(mixed $left, mixed $right): mixed
     {
         if (is_numeric($left) && is_numeric($right)) {
@@ -91,6 +114,11 @@ class Operator implements Expression
         throw $this->getUnsupportedError($left, $right);
     }
 
+    /**
+     * @param mixed $left 
+     * @param mixed $right 
+     * @return mixed 
+     */
     public function calculatePlus(mixed $left, mixed $right): mixed
     {
         if (is_numeric($left) && is_numeric($right)) {
@@ -100,6 +128,12 @@ class Operator implements Expression
         return $left . $right;
     }
 
+    /**
+     * @param mixed $left 
+     * @param mixed $right 
+     * @return mixed 
+     * @throws UnsupportedError 
+     */
     public function calculateToPower(mixed $left, mixed $right): mixed
     {
         if (is_numeric($left) && is_numeric($right)) {
@@ -108,16 +142,31 @@ class Operator implements Expression
         throw $this->getUnsupportedError($left, $right);
     }
 
+    /**
+     * @param mixed $left 
+     * @param mixed $riht 
+     * @return bool 
+     */
     public function calculateEqual($left, $riht): bool
     {
         return $left == $riht;
     }
 
+    /**
+     * @param mixed $left 
+     * @param mixed $riht 
+     * @return bool 
+     */
     public function calculateMore($left, $riht): bool
     {
         return $left > $riht;
     }
 
+    /**
+     * @param mixed $left 
+     * @param mixed $riht 
+     * @return bool 
+     */
     public function calculateLess($left, $riht): bool
     {
         return $left < $riht;

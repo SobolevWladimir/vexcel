@@ -10,7 +10,7 @@ class FloatExpression extends DataType
     {
         return [
             'type'  => 'FloatExpression',
-            'value' => $this->value,
+            'token' => $this->token,
         ];
     }
 

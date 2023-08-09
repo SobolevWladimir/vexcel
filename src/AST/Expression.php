@@ -10,7 +10,7 @@ interface Expression extends \JsonSerializable
      * /**
      * Подсчитывает  и возвращает значение.
      *
-     * @param VariableRepository $repository
+     * @param ValueRepositoryInterface $repository
      *
      * @return mixed
      */
