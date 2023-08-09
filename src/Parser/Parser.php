@@ -31,7 +31,8 @@ class Parser implements ParserInterface
         '<' => 20,
         '>' => 20,
     ];
-  /** @var Token[] */
+
+    /** @var Token[] */
     private $tokens = [];
     private int $currentPosition = 0;
 
@@ -177,9 +178,10 @@ class Parser implements ParserInterface
             }
             $args[] = $expression;
             $token = $this->getCurrentToken();
-            if($token == null){
-              $this->logError('Ожидается ")" ');
-              break;
+
+            if ($token == null) {
+                $this->logError('Ожидается ")" ');
+                break;
             }
 
             if ($token->type === TokenType::Parentheses && $token->value === ')') {
@@ -206,7 +208,7 @@ class Parser implements ParserInterface
         }
         $token = $this->getCurrentToken();
 
-        if ($token==null  || ($token->type != TokenType::Parentheses && $token->value !== ')')) {
+        if ($token == null || ($token->type != TokenType::Parentheses && $token->value !== ')')) {
             $this->logError('Ожидается ")"', $token);
 
             return null;

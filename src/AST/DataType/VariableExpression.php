@@ -15,17 +15,18 @@ class VariableExpression extends DataType
     public function jsonSerialize(): mixed
     {
         return [
-            'type'  => 'VariableExpression',
+            'type'       => 'VariableExpression',
             'identifier' => $this->identifier,
-        'token' => $this->token,
+            'token'      => $this->token,
         ];
     }
 
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
         if ($repository === null) {
-            throw new  UnsupportedError('Не указан репозиторий для получения значения для переменной');
+            throw new UnsupportedError('Не указан репозиторий для получения значения для переменной');
         }
+
         return $repository->getValueByIdentifier($this->identifier);
     }
 }

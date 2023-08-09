@@ -51,9 +51,10 @@ class Operator implements Expression
     }
 
     /**
-     * @param mixed $leftValue 
-     * @param mixed $rightValue 
-     * @return UnsupportedError 
+     * @param mixed $leftValue
+     * @param mixed $rightValue
+     *
+     * @return UnsupportedError
      */
     public function getUnsupportedError(mixed $leftValue, mixed $rightValue): UnsupportedError
     {
@@ -73,10 +74,12 @@ class Operator implements Expression
     }
 
     /**
-     * @param mixed $left 
-     * @param mixed $right 
-     * @return mixed 
-     * @throws UnsupportedError 
+     * @param mixed $left
+     * @param mixed $right
+     *
+     * @return mixed
+     *
+     * @throws UnsupportedError
      */
     public function calculateDivide(mixed $left, mixed $right): mixed
     {
@@ -87,10 +90,12 @@ class Operator implements Expression
     }
 
     /**
-     * @param mixed $left 
-     * @param mixed $right 
-     * @return mixed 
-     * @throws UnsupportedError 
+     * @param mixed $left
+     * @param mixed $right
+     *
+     * @return mixed
+     *
+     * @throws UnsupportedError
      */
     public function calculateMultiple(mixed $left, mixed $right): mixed
     {
@@ -101,10 +106,12 @@ class Operator implements Expression
     }
 
     /**
-     * @param mixed $left 
-     * @param mixed $right 
-     * @return mixed 
-     * @throws UnsupportedError 
+     * @param mixed $left
+     * @param mixed $right
+     *
+     * @return mixed
+     *
+     * @throws UnsupportedError
      */
     public function calculateMinus(mixed $left, mixed $right): mixed
     {
@@ -115,9 +122,10 @@ class Operator implements Expression
     }
 
     /**
-     * @param mixed $left 
-     * @param mixed $right 
-     * @return mixed 
+     * @param mixed $left
+     * @param mixed $right
+     *
+     * @return mixed
      */
     public function calculatePlus(mixed $left, mixed $right): mixed
     {
@@ -129,10 +137,12 @@ class Operator implements Expression
     }
 
     /**
-     * @param mixed $left 
-     * @param mixed $right 
-     * @return mixed 
-     * @throws UnsupportedError 
+     * @param mixed $left
+     * @param mixed $right
+     *
+     * @return mixed
+     *
+     * @throws UnsupportedError
      */
     public function calculateToPower(mixed $left, mixed $right): mixed
     {
@@ -143,9 +153,10 @@ class Operator implements Expression
     }
 
     /**
-     * @param mixed $left 
-     * @param mixed $riht 
-     * @return bool 
+     * @param mixed $left
+     * @param mixed $riht
+     *
+     * @return bool
      */
     public function calculateEqual($left, $riht): bool
     {
@@ -153,9 +164,10 @@ class Operator implements Expression
     }
 
     /**
-     * @param mixed $left 
-     * @param mixed $riht 
-     * @return bool 
+     * @param mixed $left
+     * @param mixed $riht
+     *
+     * @return bool
      */
     public function calculateMore($left, $riht): bool
     {
@@ -163,9 +175,10 @@ class Operator implements Expression
     }
 
     /**
-     * @param mixed $left 
-     * @param mixed $riht 
-     * @return bool 
+     * @param mixed $left
+     * @param mixed $riht
+     *
+     * @return bool
      */
     public function calculateLess($left, $riht): bool
     {

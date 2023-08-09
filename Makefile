@@ -32,6 +32,13 @@ PHPUNIT  		= $(PHP_CONT) ./vendor/bin/phpunit
 help: ## Outputs this help screen
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
+test-all:
+	@make test-composer
+	@make test-phpunit
+	@make test-phpcsfixer
+	@make test-phpstan
+
+
 test-composer: ##@Testing Validating "composer.json" and "composer.lock".
 	$(call tcStart,"test-composer: Composer - Basic Diagnose")
 	$(call title,"Composer - Validate system requirements")

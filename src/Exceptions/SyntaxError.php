@@ -10,6 +10,7 @@ class SyntaxError extends \Exception
     {
         $row = 0;
         $column = 0;
+
         if ($this->token !== null) {
             $row = $this->token->row;
             $column = $this->token->column;
@@ -23,6 +24,7 @@ class SyntaxError extends \Exception
         if ($this->token !== null) {
             return $this->token->row;
         }
+
         return 0;
     }
 
@@ -31,6 +33,7 @@ class SyntaxError extends \Exception
         if ($this->token !== null) {
             return $this->token->column;
         }
+
         return 0;
     }
 }
