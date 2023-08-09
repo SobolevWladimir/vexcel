@@ -1,3 +1,4 @@
 vendor/
 .phpunit.result.cache
 build/shared_cache/php-cs-fixer-cache.json
+.phpactor.json

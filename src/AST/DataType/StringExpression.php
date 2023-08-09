@@ -10,7 +10,7 @@ class StringExpression extends DataType
     {
         return [
             'type'  => 'StringExpression',
-            'value' => $this->value,
+            'token' => $this->token,
         ];
     }
 

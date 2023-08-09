@@ -31,8 +31,9 @@ class Parser implements ParserInterface
         '<' => 20,
         '>' => 20,
     ];
+  /** @var Token[] */
     private $tokens = [];
-    private $currentPosition = 0;
+    private int $currentPosition = 0;
 
     public function __construct(
         private Lexer $lexer = new Lexer(),
@@ -108,19 +109,19 @@ class Parser implements ParserInterface
 
         switch ($token->type) {
             case TokenType::String:
-                return $this->parseStringExpr();
+                return $this->parseStringExpr($token);
 
             case TokenType::Int:
-                return $this->parseIntExpr();
+                return $this->parseIntExpr($token);
 
             case TokenType::Float:
-                return $this->parseFloatExpr();
+                return $this->parseFloatExpr($token);
 
             case TokenType::Function:
-                return $this->parseFuntion();
+                return $this->parseFuntion($token);
 
             case TokenType::Variable:
-                return $this->parseVariableExpr();
+                return $this->parseVariableExpr($token);
 
             case TokenType::Parentheses:
                 if ($token->value === '(') {
@@ -134,42 +135,37 @@ class Parser implements ParserInterface
         return null;
     }
 
-    private function parseStringExpr(): StringExpression
+    private function parseStringExpr(Token $currentToken): StringExpression
     {
-        $currentToken = $this->getCurrentToken();
         $this->nextToken();
 
         return new StringExpression($currentToken);
     }
 
-    private function parseIntExpr(): IntExpression
+    private function parseIntExpr(Token $currentToken): IntExpression
     {
-        $currentToken = $this->getCurrentToken();
         $this->nextToken();
 
         return new IntExpression($currentToken);
     }
 
-    private function parseFloatExpr(): IntExpression
+    private function parseFloatExpr(Token $currentToken): IntExpression
     {
-        $currentToken = $this->getCurrentToken();
         $this->nextToken();
 
         return new IntExpression($currentToken);
     }
 
-    private function parseVariableExpr(): VariableExpression
+    private function parseVariableExpr(Token $currentToken): VariableExpression
     {
-        $currentToken = $this->getCurrentToken();
         $identifier = $this->repository->getIdentifierByName((string)$currentToken->value);
         $this->nextToken();
 
         return new VariableExpression($identifier, $currentToken);
     }
 
-    private function parseFuntion(): ?AbstractFunction
+    private function parseFuntion(Token $fun): AbstractFunction
     {
-        $fun = $this->getCurrentToken();
         $this->nextToken();
         $args = [];
 
@@ -181,6 +177,10 @@ class Parser implements ParserInterface
             }
             $args[] = $expression;
             $token = $this->getCurrentToken();
+            if($token == null){
+              $this->logError('Ожидается ")" ');
+              break;
+            }
 
             if ($token->type === TokenType::Parentheses && $token->value === ')') {
                 break;
@@ -206,7 +206,7 @@ class Parser implements ParserInterface
         }
         $token = $this->getCurrentToken();
 
-        if ($token->type != TokenType::Parentheses && $token->value !== ')') {
+        if ($token==null  || ($token->type != TokenType::Parentheses && $token->value !== ')')) {
             $this->logError('Ожидается ")"', $token);
 
             return null;
@@ -263,7 +263,7 @@ class Parser implements ParserInterface
         }
     }
 
-    private function logError(string $error, Token $token): void
+    private function logError(string $error, ?Token $token = null): void
     {
         throw new SyntaxError($error, $token);
     }

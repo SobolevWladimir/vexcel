@@ -12,19 +12,27 @@ class Lexer
 
     private int $row = 0;
 
-    /** @val Token[] $tokens*/
+    /** @var Token[] $tokens*/
     private array $tokens = [];
 
+    /** @var string[] */
     private array $conditionalOperators = ['=', '<', '>'];
 
+    /** @var string[] */
     private array $operators = ['*', '/', '+', '-', '^'];
+
     private string $text;
 
     public function __construct()
     {
     }
 
-    public function setCode($code): void
+    /**
+     * @param string $code 
+     * @return void 
+     * @throws SyntaxError 
+     */
+    public function setCode(string $code): void
     {
         $this->text = $code;
         $this->tokens = $this->parse();

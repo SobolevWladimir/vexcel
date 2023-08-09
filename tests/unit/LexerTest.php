@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Wladimir\ParserExcel\Lexer\Lexer;
 use Wladimir\ParserExcel\Lexer\Token;
@@ -179,7 +180,7 @@ final class LexerTest extends TestCase
     {
         $formula = file_get_contents(__DIR__ . '/formula.txt');
         $sut = new Lexer();
-        $sut->setCode($formula);
+        $sut->setCode((string)$formula);
         $response = [
             new Token(TokenType::Function, 'Если'),
             new Token(TokenType::Function, 'Сумма', 1, 4),
@@ -199,6 +200,12 @@ final class LexerTest extends TestCase
         $this->assertSameTokens($response, $tokens);
     }
 
+    /**
+     * @param Token[] $expectedValues 
+     * @param Token[] $actual 
+     * @return void 
+     * @throws ExpectationFailedException 
+     */
     private function assertSameTokens(array $expectedValues, array $actual): void
     {
         self::assertSame(count($expectedValues), count($actual));
