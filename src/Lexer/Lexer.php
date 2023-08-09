@@ -12,7 +12,7 @@ class Lexer
 
     private int $row = 0;
 
-    /** @var Token[] $tokens*/
+    /** @var Token[] */
     private array $tokens = [];
 
     /** @var string[] */
@@ -28,9 +28,9 @@ class Lexer
     }
 
     /**
-     * @param string $code 
-     * @return void 
-     * @throws SyntaxError 
+     * @param string $code
+     *
+     * @throws SyntaxError
      */
     public function setCode(string $code): void
     {

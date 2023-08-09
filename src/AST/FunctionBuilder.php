@@ -10,10 +10,12 @@ use Wladimir\ParserExcel\Lexer\Token;
 class FunctionBuilder
 {
     /**
-     * @param Token $token 
-     * @param Expression[] $args 
-     * @return AbstractFunction 
-     * @throws SyntaxError 
+     * @param Token        $token
+     * @param Expression[] $args
+     *
+     * @return AbstractFunction
+     *
+     * @throws SyntaxError
      */
     public function build(Token $token, array $args): AbstractFunction
     {

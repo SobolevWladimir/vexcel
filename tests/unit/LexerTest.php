@@ -201,10 +201,10 @@ final class LexerTest extends TestCase
     }
 
     /**
-     * @param Token[] $expectedValues 
-     * @param Token[] $actual 
-     * @return void 
-     * @throws ExpectationFailedException 
+     * @param Token[] $expectedValues
+     * @param Token[] $actual
+     *
+     * @throws ExpectationFailedException
      */
     private function assertSameTokens(array $expectedValues, array $actual): void
     {

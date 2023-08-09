@@ -32,12 +32,31 @@ PHPUNIT  		= $(PHP_CONT) ./vendor/bin/phpunit
 help: ## Outputs this help screen
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
+test-all:
+	@make test-composer
+	@make test-phpunit
+	@make test-phpcsfixer
+	@make test-phpstan
+
+
+test-composer: ##@Testing Validating "composer.json" and "composer.lock".
+	$(call tcStart,"test-composer: Composer - Basic Diagnose")
+	$(call title,"Composer - Validate system requirements")
+	composer  validate --strict
+	composer check-platform-reqs
+	$(call title,"Composer - List of outdated packages")
+	composer outdated --direct
+	$(call title,"Composer - Looking for common issues")
+	composer diagnose
+	$(call tcFinish,"test-composer: Composer - Basic Diagnose")
+
+
 test-phpunit:  ## phpunit test
 	$(call title,"PHPUnit tests")
 	@$(PHPUNIT) --testdox tests
 
 #### PHP-CS-Fixer - Static Analysis Tool ###############################################################################
-test-phpcsfixer: ##@Testing PHP-CS-Fixer - Checking code to follow standards
+test-phpcsfixer: #Testing PHP-CS-Fixer - Checking code to follow standards
 	$(call title,"PHP-CS-Fixer checking code to follow standards")
 	@echo "Src Path: $(PATH_SRC)"
 	@PHP_CS_FIXER_IGNORE_ENV=1 $(VENDOR_BIN)/php-cs-fixer fix  \
@@ -45,7 +64,7 @@ test-phpcsfixer: ##@Testing PHP-CS-Fixer - Checking code to follow standards
         --dry-run                                              \
         --diff                                                 
 
-test-phpcsfixer-fix: ##@CI PHP-CS-Fixer - Auto fix code to follow standards
+test-phpcsfixer-fix: #PHP-CS-Fixer - Auto fix code to follow standards
 	$(call title,"Fix Coding Standards with PHP-CS-Fixer")
 	@echo "Src Path: $(PATH_SRC)"
 	@PHP_CS_FIXER_IGNORE_ENV=1 $(VENDOR_BIN)/php-cs-fixer fix  \
