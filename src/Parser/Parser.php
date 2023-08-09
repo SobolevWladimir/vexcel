@@ -45,17 +45,13 @@ class Parser implements ParserInterface
     /**
      * @param string $code
      *
-     * @return ?FormulaAST
+     * @return FormulaAST
      */
-    public function parse(string $code): ?FormulaAST
+    public function parse(string $code): FormulaAST
     {
         $this->lexer->setCode($code);
         $this->tokens = $this->lexer->getAllTokens();
         $body = $this->parseExpression();
-
-        if ($body === null) {
-            return null;
-        }
 
         return new FormulaAST($body);
     }
