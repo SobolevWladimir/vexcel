@@ -17,11 +17,17 @@ abstract class AbstractFunction implements Expression
         protected array $args,
     ) {
         if (\count($args) < $this->getNumberArguments()) {
-            throw new SyntaxError('Количество аргументов меньше чем ' . $this->getNumberArguments(), $token);
+            throw new SyntaxError(
+                'Количество аргументов меньше чем ' . $this->getNumberArguments() . ' Функция:' . $token->value,
+                $token
+            );
         }
 
         if (\count($args) > $this->getNumberArguments()) {
-            throw new SyntaxError('Количество аргументов болльше чем ' . $this->getNumberArguments(), $token);
+            throw new SyntaxError(
+                'Количество аргументов болльше чем ' . $this->getNumberArguments() . ' Функция:' . $token->value,
+                $token
+            );
         }
     }
 

@@ -4,6 +4,7 @@ namespace Wladimir\ParserExcel\AST;
 
 use Wladimir\ParserExcel\AST\Function\AbstractFunction;
 use Wladimir\ParserExcel\AST\Function\Funif;
+use Wladimir\ParserExcel\AST\Function\FunNot;
 use Wladimir\ParserExcel\Exceptions\SyntaxError;
 use Wladimir\ParserExcel\Lexer\Token;
 
@@ -21,6 +22,10 @@ class FunctionBuilder
     {
         if ($token->value == 'ЕСЛИ') {
             return new Funif($token, $args);
+        }
+
+        if ($token->value == 'НЕ') {
+            return new FunNot($token, $args);
         }
         // НЕ
         // Округлить

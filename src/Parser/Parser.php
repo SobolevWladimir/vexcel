@@ -39,6 +39,7 @@ class Parser implements ParserInterface
     public function __construct(
         private Lexer $lexer = new Lexer(),
         private VariableRepositoryInterface $repository = new EmptyVariableRepository(),
+        private FunctionBuilder $functionBuilder = new FunctionBuilder(),
     ) {
     }
 
@@ -181,6 +182,7 @@ class Parser implements ParserInterface
             }
 
             if ($token->type === TokenType::Parentheses && $token->value === ')') {
+                $this->nextToken();
                 break;
             }
 
@@ -189,9 +191,8 @@ class Parser implements ParserInterface
             }
             $this->nextToken();
         }
-        $buider = new FunctionBuilder();
 
-        return $buider->build($fun, $args);
+        return $this->functionBuilder->build($fun, $args);
     }
 
     private function parseParenthesesExpr(): ?Expression
