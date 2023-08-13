@@ -79,7 +79,7 @@ final class FullTest extends TestCase
     {
         $sut = new Parser();
         $formula = $sut->parse($code);
-        $repository  = new ValueRepositoryFake();
+        $repository = new ValueRepositoryFake();
         self::assertSame($expected, $formula->calculate($repository));
     }
 }

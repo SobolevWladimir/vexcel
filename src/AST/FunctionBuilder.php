@@ -23,6 +23,7 @@ class FunctionBuilder
         if ($token->value == 'ЕСЛИ') {
             return new Funif($token, $args);
         }
+
         if ($token->value == 'НЕ') {
             return new FunNot($token, $args);
         }

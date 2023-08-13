@@ -14,9 +14,11 @@ class FunNot extends AbstractFunction
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
         $value = $this->args[0]->calculate($repository);
+
         if ($value) {
             return false;
         }
+
         return true;
     }
 
