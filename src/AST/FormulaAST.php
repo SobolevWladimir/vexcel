@@ -2,6 +2,8 @@
 
 namespace Wladimir\ParserExcel\AST;
 
+use Wladimir\ParserExcel\AST\Encoder\JsonData;
+use Wladimir\ParserExcel\AST\Encoder\JsonDecoder;
 use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
 class FormulaAST implements \JsonSerializable
@@ -30,5 +32,11 @@ class FormulaAST implements \JsonSerializable
         return [
             'body' => $body,
         ];
+    }
+    public static function fromJson(mixed $json, JsonDecoder $jsonDecoder = new JsonDecoder()): FormulaAST
+    {
+        $bodyData = JsonData::fromJson($json['body']);
+        $body = $jsonDecoder->decode($bodyData);
+        return new FormulaAST($body);
     }
 }

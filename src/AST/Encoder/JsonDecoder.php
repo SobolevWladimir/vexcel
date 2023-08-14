@@ -13,7 +13,7 @@ use Wladimir\ParserExcel\AST\Operator\Operator;
 
 class JsonDecoder implements JsonDecoderInterface
 {
-    public function __construct(protected FunctionBuilder $functionBuilder)
+    public function __construct(protected FunctionBuilder $functionBuilder  = new FunctionBuilder())
     {
     }
 
