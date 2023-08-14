@@ -2,6 +2,7 @@
 
 namespace Wladimir\ParserExcel\AST\Function;
 
+use Wladimir\ParserExcel\AST\Encoder\JsonData;
 use Wladimir\ParserExcel\AST\Expression;
 use Wladimir\ParserExcel\Exceptions\SyntaxError;
 use Wladimir\ParserExcel\Lexer\Token;
@@ -29,6 +30,11 @@ abstract class AbstractFunction implements Expression
                 $token
             );
         }
+    }
+
+    public function getJsonData(): JsonData
+    {
+        return new JsonData('funif', $this->token, ['args' => $this->args]);
     }
 
     /**

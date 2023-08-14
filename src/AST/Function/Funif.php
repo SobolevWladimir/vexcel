@@ -21,9 +21,4 @@ class Funif extends AbstractFunction
 
         return $this->args[2]->calculate($repository);
     }
-
-    public function jsonSerialize(): mixed
-    {
-        return [];
-    }
 }

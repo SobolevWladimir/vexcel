@@ -2,16 +2,14 @@
 
 namespace Wladimir\ParserExcel\AST\DataType;
 
+use Wladimir\ParserExcel\AST\Encoder\JsonData;
 use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
 class IntExpression extends DataType
 {
-    public function jsonSerialize(): mixed
+    public function getJsonData(): JsonData
     {
-        return [
-            'type'  => 'IntExpression',
-            'token' => $this->token,
-        ];
+        return new JsonData('int', $this->token);
     }
 
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
