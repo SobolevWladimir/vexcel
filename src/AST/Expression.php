@@ -2,9 +2,10 @@
 
 namespace Wladimir\ParserExcel\AST;
 
+use Wladimir\ParserExcel\AST\Encoder\JsonData;
 use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
-interface Expression extends \JsonSerializable
+interface Expression
 {
     /**
      * /**
@@ -15,4 +16,10 @@ interface Expression extends \JsonSerializable
      * @return mixed
      */
     public function calculate(?ValueRepositoryInterface $repository = null): mixed;
+
+    /**
+     *  Вернуть данные для преобразования в json.
+     *
+     * @return JsonData  */
+    public function getJsonData(): JsonData;
 }

@@ -2,6 +2,7 @@
 
 namespace Wladimir\ParserExcel\AST\Operator;
 
+use Wladimir\ParserExcel\AST\Encoder\JsonData;
 use Wladimir\ParserExcel\AST\Expression;
 use Wladimir\ParserExcel\Exceptions\UnsupportedError;
 use Wladimir\ParserExcel\Lexer\Token;
@@ -14,6 +15,18 @@ class Operator implements Expression
         protected Expression $leftExpression,
         protected Expression $rightExpression,
     ) {
+    }
+
+    public function getJsonData(): JsonData
+    {
+        return new JsonData(
+            'operator',
+            $this->token,
+            [
+                'leftExpression'  => $this->leftExpression->getJsonData(),
+                'rightExpression' => $this->rightExpression->getJsonData(),
+            ]
+        );
     }
 
     public function calculate(?ValueRepositoryInterface $repository = null): mixed

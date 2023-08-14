@@ -2,6 +2,7 @@
 
 namespace Wladimir\ParserExcel\AST\DataType;
 
+use Wladimir\ParserExcel\AST\Encoder\JsonData;
 use Wladimir\ParserExcel\Exceptions\UnsupportedError;
 use Wladimir\ParserExcel\Lexer\Token;
 use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
@@ -12,13 +13,9 @@ class VariableExpression extends DataType
     {
     }
 
-    public function jsonSerialize(): mixed
+    public function getJsonData(): JsonData
     {
-        return [
-            'type'       => 'VariableExpression',
-            'identifier' => $this->identifier,
-            'token'      => $this->token,
-        ];
+        return new JsonData('variable', $this->token, ['identifier' => $this->identifier]);
     }
 
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
