@@ -26,36 +26,20 @@ enum TokenType: string
 
     public static function tryFromName(string $name): ?TokenType
     {
-        switch ($name) {
-            case 'string':
-                return self::String;
-                // no break
-            case 'int':
-                return self::Int;
+        $arr  = [
+        'string' => self::String,
+        'int' => self::Int,
+        'float' => self::Float,
+        'function' => self::Function,
+        'conditionalOperator' => self::ConditionalOperator,
+        'operator' => self::BinaryOperator,
+        'variable' => self::Variable,
+        'separator' => self::Separator,
+        'unknown' => self::Unknown,
 
-            case 'float':
-                return self::Float;
-
-            case 'function':
-                return self::Function;
-
-            case 'conditionalOperator':
-                return self::ConditionalOperator;
-
-            case 'operator':
-                return self::BinaryOperator;
-
-            case 'variable':
-                return self::Variable;
-
-            case 'parentheses':
-                return self::Parentheses;
-
-            case 'separator':
-                return self::Separator;
-
-            case 'unknown':
-                return self::Unknown;
+        ];
+        if (array_key_exists($name, $arr)) {
+            return $arr[$name];
         }
 
         return null;
