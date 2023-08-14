@@ -21,4 +21,19 @@ class Token implements \JsonSerializable
             'column' => $this->column,
         ];
     }
+
+    /**
+     * @param mixed[] $json
+     *
+     * @return Token
+     */
+    public static function fromJson(array $json): self
+    {
+        return new self(
+            $json['type'],
+            $json['value'],
+            (int)$json['row'],
+            (int)$json['column'],
+        );
+    }
 }

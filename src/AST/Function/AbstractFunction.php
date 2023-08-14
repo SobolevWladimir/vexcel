@@ -34,7 +34,13 @@ abstract class AbstractFunction implements Expression
 
     public function getJsonData(): JsonData
     {
-        return new JsonData('funif', $this->token, ['args' => $this->args]);
+        $args = [];
+
+        foreach ($this->args as $arg) {
+            $args[] = $arg->getJsonData();
+        }
+
+        return new JsonData('function', $this->token, ['args' => $args]);
     }
 
     /**

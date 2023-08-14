@@ -22,7 +22,10 @@ class Operator implements Expression
         return new JsonData(
             'operator',
             $this->token,
-            ['leftExpression' => $this->leftExpression, 'rightExpression' => $this->rightExpression]
+            [
+                'leftExpression'  => $this->leftExpression->getJsonData(),
+                'rightExpression' => $this->rightExpression->getJsonData(),
+            ]
         );
     }
 

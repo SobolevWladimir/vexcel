@@ -21,8 +21,14 @@ class FormulaAST implements \JsonSerializable
 
     public function jsonSerialize(): mixed
     {
+        $body = null;
+
+        if ($this->body) {
+            $body = $this->body->getJsonData();
+        }
+
         return [
-            'body' => $this->body,
+            'body' => $body,
         ];
     }
 }

@@ -18,15 +18,6 @@ class VariableExpression extends DataType
         return new JsonData('variable', $this->token, ['identifier' => $this->identifier]);
     }
 
-    public function jsonSerialize(): mixed
-    {
-        return [
-            'type'       => 'VariableExpression',
-            'identifier' => $this->identifier,
-            'token'      => $this->token,
-        ];
-    }
-
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
         if ($repository === null) {
