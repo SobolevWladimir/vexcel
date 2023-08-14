@@ -33,10 +33,12 @@ class FormulaAST implements \JsonSerializable
             'body' => $body,
         ];
     }
-    public static function fromJson(mixed $json, JsonDecoder $jsonDecoder = new JsonDecoder()): FormulaAST
+
+    public static function fromJson(mixed $json, JsonDecoder $jsonDecoder = new JsonDecoder()): self
     {
         $bodyData = JsonData::fromJson($json['body']);
         $body = $jsonDecoder->decode($bodyData);
-        return new FormulaAST($body);
+
+        return new self($body);
     }
 }

@@ -13,7 +13,7 @@ use Wladimir\ParserExcel\AST\Operator\Operator;
 
 class JsonDecoder implements JsonDecoderInterface
 {
-    public function __construct(protected FunctionBuilder $functionBuilder  = new FunctionBuilder())
+    public function __construct(protected FunctionBuilder $functionBuilder = new FunctionBuilder())
     {
     }
 
@@ -28,6 +28,15 @@ class JsonDecoder implements JsonDecoderInterface
 
             case 'string':
                 return $this->decodeString($data);
+
+            case 'variable':
+                return $this->decodeVariable($data);
+
+            case 'function':
+                return $this->decodeFunction($data);
+
+            case 'operator':
+                return $this->decodeOperator($data);
         }
 
         throw new EncoderException(
