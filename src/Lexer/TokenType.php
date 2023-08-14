@@ -29,7 +29,7 @@ enum TokenType: string
         switch ($name) {
             case 'string':
                 return self::String;
-                // no break
+
             case 'int':
                 return self::Int;
 
