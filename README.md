@@ -1,8 +1,6 @@
 <h1 align="center">
   <img src="./logo.png" alt="vexcel" width="300px">
 </h1>
-
-
  Позволяет  использовать формулы excel в вашем приложении. 
 
  Особенности: 
@@ -48,9 +46,42 @@ use Wladimir\ParserExcel\Parser\Parser;
 ```
  ### Использование без переменных: 
 ```php
-$formula = '3+3'; 
 $parser = new Parser();
-$ast = $parser->parse($formula);// Получили синтаксическое дерево
+$ast = $parser->parse('3+3');// Получили синтаксическое дерево
 $answer = $ast->calculate(); // $answer = 6
 ````
 
+### Использование переменных в формулах: 
+Для использования переменных, нам необходимо объяснить системе как брать значения переменных. Для этого создате класс реализующий интерфейс ValueRepository: 
+Например, давайте представим что у нас есть переменные названия которых соответсвуют числам ("ОДИН"=1, "ДВА"=2, "ТРИ"=3 и тд). Тогда класс будет иметь следующий вид: 
+```php
+use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
+
+class ValueRepositoryFake implements ValueRepositoryInterface
+{
+    /** @var array<string, int> */
+    private array $variables = [
+        'ОДИН'   => 1,
+        'ДВА'    => 2,
+        'ТРИ'    => 3,
+        'ЧЕТЫРЕ' => 4,
+        'ПЯТЬ'   => 5,
+        'ШЕСТЬ'  => 6,
+    ];
+
+    public function getValueByIdentifier(string $identificator): mixed
+    {
+        return $this->variables[$identificator];
+    }
+}
+```
+Далее мы передаем экземпляр этого класса для подсчета: 
+```php
+$parser = new Parser();
+$ast = $parser->parse('ТРИ+3');// Получили синтаксическое дерево
+
+$repository = new ValueRepositoryFake();// Наш репозиторий
+
+$answer = $ast->calculate($repository); // $answer = 6
+```
+### Использование функций:
