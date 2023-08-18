@@ -78,7 +78,7 @@ class VexcelEncoder implements EncoderInterface
             $result .= " " . $argName . ";";
         }
         $last  = end($args);
-        $result .= $this->encode($last);
+        $result .= " ".$this->encode($last);
 
         $result .= ")";
         return $result;
