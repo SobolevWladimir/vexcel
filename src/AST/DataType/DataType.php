@@ -10,4 +10,9 @@ abstract class DataType implements Expression
     public function __construct(protected Token $token)
     {
     }
+
+    public function getToken(): Token
+    {
+        return $this->token;
+    }
 }

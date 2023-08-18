@@ -9,7 +9,6 @@ class FakeLexer extends Lexer
 {
     /**
      * @param Token[] $tokens
-     * @return void
      */
     public function __construct(private array $tokens)
     {

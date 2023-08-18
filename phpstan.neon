@@ -1,0 +1,21 @@
+# See https://phpstan.org/user-guide/baseline
+#includes:
+#  - phpstan-baseline.neon
+
+parameters:
+  level: 8
+  reportUnmatchedIgnoredErrors: false
+  checkGenericClassInNonGenericObjectType: false
+  fileExtensions:
+    - php
+  scanDirectories:
+    - src
+    - tests
+  excludePaths:
+    - .git/*
+    - bin/*
+    - docker/*
+    - docs/*
+    - public/*
+    - vendor/*
+    - var/*
