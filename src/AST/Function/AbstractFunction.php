@@ -48,4 +48,17 @@ abstract class AbstractFunction implements Expression
      *
      * @return int  */
     abstract protected function getNumberArguments(): int;
+
+    public function getToken(): Token
+    {
+        return $this->token;
+    }
+
+    /**
+     * @return Expression[]
+     */
+    public function getArgs(): array
+    {
+        return $this->args;
+    }
 }

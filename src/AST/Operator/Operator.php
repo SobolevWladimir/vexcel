@@ -29,6 +29,21 @@ class Operator implements Expression
         );
     }
 
+    public function getToken(): Token
+    {
+        return $this->token;
+    }
+
+    public function getLeftExpression(): Expression
+    {
+        return $this->leftExpression;
+    }
+
+    public function getRightExpression(): Expression
+    {
+        return $this->rightExpression;
+    }
+
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
         $left = $this->leftExpression->calculate($repository);
