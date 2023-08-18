@@ -33,6 +33,7 @@ class Operator implements Expression
     {
         return $this->token;
     }
+
     public function getLeftExpression(): Expression
     {
         return $this->leftExpression;
@@ -42,7 +43,6 @@ class Operator implements Expression
     {
         return $this->rightExpression;
     }
-
 
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {

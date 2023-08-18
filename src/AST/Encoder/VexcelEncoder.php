@@ -21,13 +21,16 @@ class VexcelEncoder implements EncoderInterface
 
     public function encode(Expression $expression): string
     {
-        $result  = "";
+        $result = '';
+
         if ($expression instanceof StringExpression) {
-            return  $this->encodeString($expression);
+            return $this->encodeString($expression);
         }
+
         if ($expression instanceof IntExpression) {
             return $this->encodeInt($expression);
         }
+
         if ($expression instanceof FloatExpression) {
             return $this->encodeFloat($expression);
         }
@@ -35,6 +38,7 @@ class VexcelEncoder implements EncoderInterface
         if ($expression instanceof VariableExpression) {
             return $this->encodeVariable($expression);
         }
+
         if ($expression instanceof AbstractFunction) {
             return $this->encodeFunction($expression);
         }
@@ -63,33 +67,36 @@ class VexcelEncoder implements EncoderInterface
 
     private function encodeVariable(VariableExpression $expresion): string
     {
-        $id  = $expresion->getIdentifier();
+        $id = $expresion->getIdentifier();
+
         return $this->repository->getNameByIdentifier($id);
     }
 
     private function encodeFunction(AbstractFunction $fun): string
     {
-        $result  = $fun->getToken()->value;
-        $result .= "(";
-        $args  = $fun->getArgs();
-        for ($i = 0; $i < count($args) - 1; $i++) {
-            $arg = $args[$i];
-            $argName  = $this->encode($arg);
-            $result .= " " . $argName . ";";
-        }
-        $last  = end($args);
-        $result .= " ".$this->encode($last);
+        $result = $fun->getToken()->value;
+        $result .= '(';
+        $args = $fun->getArgs();
 
-        $result .= ")";
+        for ($i = 0; $i < \count($args) - 1; $i++) {
+            $arg = $args[$i];
+            $argName = $this->encode($arg);
+            $result .= ' ' . $argName . ';';
+        }
+        $last = end($args);
+        $result .= ' ' . $this->encode($last);
+
+        $result .= ')';
+
         return $result;
     }
-
 
     private function encodeOperator(Operator $expression): string
     {
         $left = $this->encode($expression->getLeftExpression());
         $right = $this->encode($expression->getRightExpression());
-        $operator  = (string)$expression->getToken()->value;
-        return "$left $operator $right";
+        $operator = (string)$expression->getToken()->value;
+
+        return "{$left} {$operator} {$right}";
     }
 }

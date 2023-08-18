@@ -47,8 +47,9 @@ class FormulaAST implements \JsonSerializable
     public function toCode(EncoderInterface $encoder = new VexcelEncoder()): string
     {
         if ($this->body == null) {
-            return "";
+            return '';
         }
+
         return $encoder->encode($this->body);
     }
 }

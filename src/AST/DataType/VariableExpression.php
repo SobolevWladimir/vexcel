@@ -29,7 +29,6 @@ class VariableExpression extends DataType
 
     public function getIdentifier(): string
     {
-     return $this->identifier;
-      
+        return $this->identifier;
     }
 }
