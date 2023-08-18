@@ -2,8 +2,10 @@
 
 namespace Wladimir\ParserExcel\AST;
 
+use Wladimir\ParserExcel\AST\Encoder\EncoderInterface;
 use Wladimir\ParserExcel\AST\Encoder\JsonData;
 use Wladimir\ParserExcel\AST\Encoder\JsonDecoder;
+use Wladimir\ParserExcel\AST\Encoder\VexcelEncoder;
 use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
 class FormulaAST implements \JsonSerializable
@@ -40,5 +42,13 @@ class FormulaAST implements \JsonSerializable
         $body = $jsonDecoder->decode($bodyData);
 
         return new self($body);
+    }
+
+    public function toCode(EncoderInterface $encoder = new VexcelEncoder()): string
+    {
+    if($this->body == null){
+      return "";
+    }
+        return $encoder->encode($this->body);
     }
 }

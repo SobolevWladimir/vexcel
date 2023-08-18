@@ -26,4 +26,10 @@ class VariableExpression extends DataType
 
         return $repository->getValueByIdentifier($this->identifier);
     }
+
+    public function getIdentifier(): string
+    {
+     return $this->identifier;
+      
+    }
 }
