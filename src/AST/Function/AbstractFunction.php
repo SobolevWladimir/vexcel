@@ -54,6 +54,9 @@ abstract class AbstractFunction implements Expression
         return $this->token;
     }
 
+    /**
+     * @return Expression[]
+     */
     public function getArgs(): array
     {
         return $this->args;

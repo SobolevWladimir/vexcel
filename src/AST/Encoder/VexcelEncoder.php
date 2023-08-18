@@ -83,8 +83,11 @@ class VexcelEncoder implements EncoderInterface
             $argName = $this->encode($arg);
             $result .= ' ' . $argName . ';';
         }
-        $last = end($args);
-        $result .= ' ' . $this->encode($last);
+
+        if (\count($args) > 0) {
+            $last = end($args);
+            $result .= ' ' . $this->encode($last);
+        }
 
         $result .= ')';
 
