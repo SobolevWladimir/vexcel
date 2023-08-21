@@ -4,21 +4,19 @@ namespace Wladimir\ParserExcel\AST\Function;
 
 use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
 
-class FunNot extends AbstractFunction
+class RoundUP extends AbstractFunction
 {
     protected function getNumberArguments(): int
     {
-        return 1;
+        return 2;
     }
 
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
         $value = $this->args[0]->calculate($repository);
 
-        if ($value) {
-            return false;
-        }
+        $precision = (int)$this->args[1]->calculate($repository);
 
-        return true;
+        return round($value, $precision, PHP_ROUND_HALF_UP);
     }
 }
