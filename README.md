@@ -72,10 +72,11 @@ class ValueRepositoryFake implements ValueRepositoryInterface
 }
 ```
 Функция getValueByIdentifier принимает идентификатор переменной  (по умолчанию идентификатор равен имени переменной. <a href="https://github.com/SobolevWladimir/vexcel/blob/logo/README.md#хранение-формул-в-бд"> cм. подробнее: хранение формул в БД </a> ) и возращяет значение. 
+
 Далее мы передаем экземпляр этого класса для подсчета: 
 ```php
 $parser = new Parser();
-$ast = $parser->parse('ТРИ+3');// Получили синтаксическое дерево
+$ast = $parser->parse('ПЕРЕМЕН_ТРИ+3');// Получили синтаксическое дерево
 
 $repository = new ValueRepositoryFake();// Наш репозиторий
 
