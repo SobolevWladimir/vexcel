@@ -2,6 +2,7 @@
 
 namespace Wladimir\ParserExcel\Parser;
 
+use Wladimir\ParserExcel\AST\DataType\FloatExpression;
 use Wladimir\ParserExcel\AST\DataType\IntExpression;
 use Wladimir\ParserExcel\AST\DataType\StringExpression;
 use Wladimir\ParserExcel\AST\DataType\VariableExpression;
@@ -128,7 +129,7 @@ class Parser implements ParserInterface
                 break;
         }
 
-        $this->logError('Не ожидаенный тип токена', $token);
+        $this->logError('Не ожидаенный тип токена: ' . $token->value, $token);
 
         return null;
     }
@@ -147,11 +148,11 @@ class Parser implements ParserInterface
         return new IntExpression($currentToken);
     }
 
-    private function parseFloatExpr(Token $currentToken): IntExpression
+    private function parseFloatExpr(Token $currentToken): FloatExpression
     {
         $this->nextToken();
 
-        return new IntExpression($currentToken);
+        return new FloatExpression($currentToken);
     }
 
     private function parseVariableExpr(Token $currentToken): VariableExpression
@@ -168,6 +169,20 @@ class Parser implements ParserInterface
         $args = [];
 
         while (!$this->isEnd()) {
+            $token = $this->getCurrentToken();
+            if ($token === null) {
+                break;
+            }
+
+            if ($token->type === TokenType::Parentheses && $token->value === ')') {
+                $this->nextToken();
+                break;
+            }
+            if ($token->type === TokenType::Separator) {
+                $this->nextToken();
+                continue;
+            }
+
             $expression = $this->parseExpression();
 
             if (!$expression) {
@@ -177,19 +192,13 @@ class Parser implements ParserInterface
             $token = $this->getCurrentToken();
 
             if ($token == null) {
-                $this->logError('Ожидается ")" ');
+                $this->logError('Ожидается ")"  в конце ');
                 break;
             }
 
-            if ($token->type === TokenType::Parentheses && $token->value === ')') {
-                $this->nextToken();
-                break;
-            }
-
-            if ($token->type != TokenType::Separator) {
+            if ( $token->type !== TokenType::Separator && $token->type!==TokenType::Parentheses) {
                 $this->logError('Ожидается ")" или ";". Дано: ' . $token->value, $token);
             }
-            $this->nextToken();
         }
 
         return $this->functionBuilder->build($fun, $args);

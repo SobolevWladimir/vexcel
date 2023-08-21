@@ -29,7 +29,7 @@ final class ParserTest extends TestCase
         $sut = new Parser(lexer: $lexer);
         $formula = $sut->parse('');
 
-        self::assertSame($formula->calculate(), 3);
+        self::assertSame($formula->calculate(), 3.0);
     }
 
     public function testSumm(): void
@@ -42,7 +42,7 @@ final class ParserTest extends TestCase
         $sut = new Parser(lexer: $lexer);
         $formula = $sut->parse('');
 
-        self::assertSame($formula->calculate(), 6);
+        self::assertSame($formula->calculate(), 6.0);
     }
 
     public function testMinus(): void
@@ -55,7 +55,7 @@ final class ParserTest extends TestCase
         $sut = new Parser(lexer: $lexer);
         $formula = $sut->parse('');
 
-        self::assertSame($formula->calculate(), 0);
+        self::assertSame($formula->calculate(), 0.0);
     }
 
     public function testDevide(): void
@@ -68,7 +68,7 @@ final class ParserTest extends TestCase
         $sut = new Parser(lexer: $lexer);
         $formula = $sut->parse('');
 
-        self::assertSame($formula->calculate(), 1);
+        self::assertSame($formula->calculate(), 1.0);
     }
 
     public function testMultiple(): void
@@ -81,7 +81,7 @@ final class ParserTest extends TestCase
         $sut = new Parser(lexer: $lexer);
         $formula = $sut->parse('');
 
-        self::assertSame($formula->calculate(), 9);
+        self::assertSame($formula->calculate(), 9.0);
     }
 
     public function testPov(): void
@@ -94,7 +94,7 @@ final class ParserTest extends TestCase
         $sut = new Parser(lexer: $lexer);
         $formula = $sut->parse('');
 
-        self::assertSame($formula->calculate(), 27);
+        self::assertSame($formula->calculate(), 27.0);
     }
 
     public function testParenthees(): void
@@ -110,7 +110,7 @@ final class ParserTest extends TestCase
         ]);
         $sut = new Parser(lexer: $lexer);
         $formula = $sut->parse('');
-        self::assertSame($formula->calculate(), 12);
+        self::assertSame($formula->calculate(), 12.0);
     }
 
     public function testConditionTrue(): void
