@@ -13,9 +13,10 @@ class RoundUP extends AbstractFunction
 
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
-        $value =$this->args[0]->calculate($repository);
+        $value = $this->args[0]->calculate($repository);
 
         $precision = (int)$this->args[1]->calculate($repository);
+
         return round($value, $precision, PHP_ROUND_HALF_UP);
     }
 }

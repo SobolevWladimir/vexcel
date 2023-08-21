@@ -15,5 +15,4 @@ class FunTrue extends AbstractFunction
     {
         return true;
     }
-
 }

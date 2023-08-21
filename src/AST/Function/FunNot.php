@@ -21,5 +21,4 @@ class FunNot extends AbstractFunction
 
         return true;
     }
-
 }

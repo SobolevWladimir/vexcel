@@ -170,6 +170,7 @@ class Parser implements ParserInterface
 
         while (!$this->isEnd()) {
             $token = $this->getCurrentToken();
+
             if ($token === null) {
                 break;
             }
@@ -178,6 +179,7 @@ class Parser implements ParserInterface
                 $this->nextToken();
                 break;
             }
+
             if ($token->type === TokenType::Separator) {
                 $this->nextToken();
                 continue;
@@ -196,7 +198,7 @@ class Parser implements ParserInterface
                 break;
             }
 
-            if ( $token->type !== TokenType::Separator && $token->type!==TokenType::Parentheses) {
+            if ($token->type !== TokenType::Separator && $token->type !== TokenType::Parentheses) {
                 $this->logError('Ожидается ")" или ";". Дано: ' . $token->value, $token);
             }
         }

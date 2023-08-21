@@ -13,7 +13,7 @@ class RoundDOWN extends AbstractFunction
 
     public function calculate(?ValueRepositoryInterface $repository = null): mixed
     {
-        $value =(float)$this->args[0]->calculate($repository);
+        $value = (float)$this->args[0]->calculate($repository);
 
         $precision = (int)$this->args[1]->calculate($repository);
 

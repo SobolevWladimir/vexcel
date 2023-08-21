@@ -15,5 +15,4 @@ class FunFalse extends AbstractFunction
     {
         return false;
     }
-
 }
