@@ -1,5 +1,5 @@
 {
-  "name": "wladimir/vexcel",
+  "name": "sobolevwladimir/vexcel",
   "description": "Parse excel formula to syntax tree",
   "type": "library",
   "license": "MIT",
@@ -14,7 +14,7 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "Wladimir\\ParserExcel\\": "src/"
+      "SobolevWladimir\\Vexcel\\": "src/"
     }
   },
   "autoload-dev": {

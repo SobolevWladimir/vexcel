@@ -1,6 +1,6 @@
 <?php
 
-namespace Wladimir\ParserExcel\Lexer;
+namespace SobolevWladimir\Vexcel\Lexer;
 
 class Token implements \JsonSerializable
 {

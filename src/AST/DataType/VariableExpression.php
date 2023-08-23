@@ -1,11 +1,11 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\DataType;
+namespace SobolevWladimir\Vexcel\AST\DataType;
 
-use Wladimir\ParserExcel\AST\Encoder\JsonData;
-use Wladimir\ParserExcel\Exceptions\UnsupportedError;
-use Wladimir\ParserExcel\Lexer\Token;
-use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
+use SobolevWladimir\Vexcel\AST\Encoder\JsonData;
+use SobolevWladimir\Vexcel\Exceptions\UnsupportedError;
+use SobolevWladimir\Vexcel\Lexer\Token;
+use SobolevWladimir\Vexcel\Repository\ValueRepositoryInterface;
 
 class VariableExpression extends DataType
 {

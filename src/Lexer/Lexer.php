@@ -1,8 +1,8 @@
 <?php
 
-namespace Wladimir\ParserExcel\Lexer;
+namespace SobolevWladimir\Vexcel\Lexer;
 
-use Wladimir\ParserExcel\Exceptions\SyntaxError;
+use SobolevWladimir\Vexcel\Exceptions\SyntaxError;
 
 class Lexer
 {

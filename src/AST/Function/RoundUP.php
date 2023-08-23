@@ -1,8 +1,8 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\Function;
+namespace SobolevWladimir\Vexcel\AST\Function;
 
-use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
+use SobolevWladimir\Vexcel\Repository\ValueRepositoryInterface;
 
 class RoundUP extends AbstractFunction
 {

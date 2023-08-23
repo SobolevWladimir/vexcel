@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
-use Wladimir\ParserExcel\Lexer\Lexer;
-use Wladimir\ParserExcel\Lexer\Token;
-use Wladimir\ParserExcel\Lexer\TokenType;
+use SobolevWladimir\Vexcel\Lexer\Lexer;
+use SobolevWladimir\Vexcel\Lexer\Token;
+use SobolevWladimir\Vexcel\Lexer\TokenType;
 
 final class LexerTest extends TestCase
 {

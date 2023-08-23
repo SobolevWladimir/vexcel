@@ -1,12 +1,12 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\Operator;
+namespace SobolevWladimir\Vexcel\AST\Operator;
 
-use Wladimir\ParserExcel\AST\Encoder\JsonData;
-use Wladimir\ParserExcel\AST\Expression;
-use Wladimir\ParserExcel\Exceptions\UnsupportedError;
-use Wladimir\ParserExcel\Lexer\Token;
-use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
+use SobolevWladimir\Vexcel\AST\Encoder\JsonData;
+use SobolevWladimir\Vexcel\AST\Expression;
+use SobolevWladimir\Vexcel\Exceptions\UnsupportedError;
+use SobolevWladimir\Vexcel\Lexer\Token;
+use SobolevWladimir\Vexcel\Repository\ValueRepositoryInterface;
 
 class Operator implements Expression
 {

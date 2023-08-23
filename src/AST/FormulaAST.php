@@ -1,12 +1,12 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST;
+namespace SobolevWladimir\Vexcel\AST;
 
-use Wladimir\ParserExcel\AST\Encoder\EncoderInterface;
-use Wladimir\ParserExcel\AST\Encoder\JsonData;
-use Wladimir\ParserExcel\AST\Encoder\JsonDecoder;
-use Wladimir\ParserExcel\AST\Encoder\VexcelEncoder;
-use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
+use SobolevWladimir\Vexcel\AST\Encoder\EncoderInterface;
+use SobolevWladimir\Vexcel\AST\Encoder\JsonData;
+use SobolevWladimir\Vexcel\AST\Encoder\JsonDecoder;
+use SobolevWladimir\Vexcel\AST\Encoder\VexcelEncoder;
+use SobolevWladimir\Vexcel\Repository\ValueRepositoryInterface;
 
 class FormulaAST implements \JsonSerializable
 {

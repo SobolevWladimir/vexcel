@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use SobolevWladimir\Vexcel\AST\FormulaAST;
+use SobolevWladimir\Vexcel\Parser\Parser;
 use Tests\Data\ValueRepositoryFake;
-use Wladimir\ParserExcel\AST\FormulaAST;
-use Wladimir\ParserExcel\Parser\Parser;
 
 class JsonDecoderTest extends TestCase
 {

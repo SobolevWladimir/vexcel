@@ -2,8 +2,8 @@
 
 namespace Tests\Data;
 
-use Wladimir\ParserExcel\Lexer\Lexer;
-use Wladimir\ParserExcel\Lexer\Token;
+use SobolevWladimir\Vexcel\Lexer\Lexer;
+use SobolevWladimir\Vexcel\Lexer\Token;
 
 class FakeLexer extends Lexer
 {

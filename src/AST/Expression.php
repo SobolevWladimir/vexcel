@@ -1,9 +1,9 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST;
+namespace SobolevWladimir\Vexcel\AST;
 
-use Wladimir\ParserExcel\AST\Encoder\JsonData;
-use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
+use SobolevWladimir\Vexcel\AST\Encoder\JsonData;
+use SobolevWladimir\Vexcel\Repository\ValueRepositoryInterface;
 
 interface Expression
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\Encoder;
+namespace SobolevWladimir\Vexcel\AST\Encoder;
 
-use Wladimir\ParserExcel\Lexer\Token;
+use SobolevWladimir\Vexcel\Lexer\Token;
 
 class JsonData implements \JsonSerializable
 {

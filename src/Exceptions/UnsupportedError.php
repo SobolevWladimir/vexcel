@@ -1,6 +1,6 @@
 <?php
 
-namespace Wladimir\ParserExcel\Exceptions;
+namespace SobolevWladimir\Vexcel\Exceptions;
 
 class UnsupportedError extends \Exception
 {

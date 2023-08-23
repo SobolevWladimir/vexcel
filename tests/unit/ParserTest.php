@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use SobolevWladimir\Vexcel\Lexer\Token;
+use SobolevWladimir\Vexcel\Lexer\TokenType;
+use SobolevWladimir\Vexcel\Parser\Parser;
 use Tests\Data\FakeLexer;
-use Wladimir\ParserExcel\Lexer\Token;
-use Wladimir\ParserExcel\Lexer\TokenType;
-use Wladimir\ParserExcel\Parser\Parser;
 
 final class ParserTest extends TestCase
 {

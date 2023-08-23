@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Wladimir\ParserExcel\AST\FormulaAST;
-use Wladimir\ParserExcel\Parser\Parser;
+use SobolevWladimir\Vexcel\AST\FormulaAST;
+use SobolevWladimir\Vexcel\Parser\Parser;
 
 class VexcelTest extends TestCase
 {

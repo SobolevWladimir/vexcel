@@ -1,8 +1,8 @@
 <?php
 
-namespace Wladimir\ParserExcel;
+namespace SobolevWladimir\Vexcel;
 
-use Wladimir\ParserExcel\AST\FormulaAST;
+use SobolevWladimir\Vexcel\AST\FormulaAST;
 
 interface ParserInterface
 {

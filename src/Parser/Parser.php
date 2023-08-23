@@ -1,23 +1,23 @@
 <?php
 
-namespace Wladimir\ParserExcel\Parser;
+namespace SobolevWladimir\Vexcel\Parser;
 
-use Wladimir\ParserExcel\AST\DataType\FloatExpression;
-use Wladimir\ParserExcel\AST\DataType\IntExpression;
-use Wladimir\ParserExcel\AST\DataType\StringExpression;
-use Wladimir\ParserExcel\AST\DataType\VariableExpression;
-use Wladimir\ParserExcel\AST\Expression;
-use Wladimir\ParserExcel\AST\FormulaAST;
-use Wladimir\ParserExcel\AST\Function\AbstractFunction;
-use Wladimir\ParserExcel\AST\FunctionBuilder;
-use Wladimir\ParserExcel\AST\Operator\Operator;
-use Wladimir\ParserExcel\Exceptions\SyntaxError;
-use Wladimir\ParserExcel\Lexer\Lexer;
-use Wladimir\ParserExcel\Lexer\Token;
-use Wladimir\ParserExcel\Lexer\TokenType;
-use Wladimir\ParserExcel\ParserInterface;
-use Wladimir\ParserExcel\Repository\EmptyVariableRepository;
-use Wladimir\ParserExcel\Repository\VariableRepositoryInterface;
+use SobolevWladimir\Vexcel\AST\DataType\FloatExpression;
+use SobolevWladimir\Vexcel\AST\DataType\IntExpression;
+use SobolevWladimir\Vexcel\AST\DataType\StringExpression;
+use SobolevWladimir\Vexcel\AST\DataType\VariableExpression;
+use SobolevWladimir\Vexcel\AST\Expression;
+use SobolevWladimir\Vexcel\AST\FormulaAST;
+use SobolevWladimir\Vexcel\AST\Function\AbstractFunction;
+use SobolevWladimir\Vexcel\AST\FunctionBuilder;
+use SobolevWladimir\Vexcel\AST\Operator\Operator;
+use SobolevWladimir\Vexcel\Exceptions\SyntaxError;
+use SobolevWladimir\Vexcel\Lexer\Lexer;
+use SobolevWladimir\Vexcel\Lexer\Token;
+use SobolevWladimir\Vexcel\Lexer\TokenType;
+use SobolevWladimir\Vexcel\ParserInterface;
+use SobolevWladimir\Vexcel\Repository\EmptyVariableRepository;
+use SobolevWladimir\Vexcel\Repository\VariableRepositoryInterface;
 
 class Parser implements ParserInterface
 {
