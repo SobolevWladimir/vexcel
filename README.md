@@ -118,3 +118,4 @@ $ast = FormulaAST::fromJson(json_decode((string)$formulaJson, true));
 $encoder = new VexcelEncoder($youVariableRepository); 
 $code = $ast->toCode($encoder); 
 ```
+ 
