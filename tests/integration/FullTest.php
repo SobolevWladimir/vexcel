@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use SobolevWladimir\Vexcel\Parser\Parser;
 use Tests\Data\ValueRepositoryFake;
-use Wladimir\ParserExcel\Parser\Parser;
 
 final class FullTest extends TestCase
 {

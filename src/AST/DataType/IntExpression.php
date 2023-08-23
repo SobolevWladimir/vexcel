@@ -1,9 +1,9 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\DataType;
+namespace SobolevWladimir\Vexcel\AST\DataType;
 
-use Wladimir\ParserExcel\AST\Encoder\JsonData;
-use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
+use SobolevWladimir\Vexcel\AST\Encoder\JsonData;
+use SobolevWladimir\Vexcel\Repository\ValueRepositoryInterface;
 
 class IntExpression extends DataType
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\Function;
+namespace SobolevWladimir\Vexcel\AST\Function;
 
-use Wladimir\ParserExcel\AST\Encoder\JsonData;
-use Wladimir\ParserExcel\AST\Expression;
-use Wladimir\ParserExcel\Exceptions\SyntaxError;
-use Wladimir\ParserExcel\Lexer\Token;
+use SobolevWladimir\Vexcel\AST\Encoder\JsonData;
+use SobolevWladimir\Vexcel\AST\Expression;
+use SobolevWladimir\Vexcel\Exceptions\SyntaxError;
+use SobolevWladimir\Vexcel\Lexer\Token;
 
 abstract class AbstractFunction implements Expression
 {

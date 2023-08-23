@@ -1,6 +1,6 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\Encoder;
+namespace SobolevWladimir\Vexcel\AST\Encoder;
 
 class EncoderException extends \Exception
 {

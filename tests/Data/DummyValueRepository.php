@@ -2,7 +2,7 @@
 
 namespace Tests\Data;
 
-use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
+use SobolevWladimir\Vexcel\Repository\ValueRepositoryInterface;
 
 class DummyValueRepository implements ValueRepositoryInterface
 {

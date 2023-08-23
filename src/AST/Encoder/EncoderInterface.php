@@ -1,8 +1,8 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\Encoder;
+namespace SobolevWladimir\Vexcel\AST\Encoder;
 
-use Wladimir\ParserExcel\AST\Expression;
+use SobolevWladimir\Vexcel\AST\Expression;
 
 interface EncoderInterface
 {

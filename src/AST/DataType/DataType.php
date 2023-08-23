@@ -1,9 +1,9 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\DataType;
+namespace SobolevWladimir\Vexcel\AST\DataType;
 
-use Wladimir\ParserExcel\AST\Expression;
-use Wladimir\ParserExcel\Lexer\Token;
+use SobolevWladimir\Vexcel\AST\Expression;
+use SobolevWladimir\Vexcel\Lexer\Token;
 
 abstract class DataType implements Expression
 {

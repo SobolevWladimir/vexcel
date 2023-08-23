@@ -1,15 +1,15 @@
 <?php
 
-namespace Wladimir\ParserExcel\AST\Encoder;
+namespace SobolevWladimir\Vexcel\AST\Encoder;
 
-use Wladimir\ParserExcel\AST\DataType\FloatExpression;
-use Wladimir\ParserExcel\AST\DataType\IntExpression;
-use Wladimir\ParserExcel\AST\DataType\StringExpression;
-use Wladimir\ParserExcel\AST\DataType\VariableExpression;
-use Wladimir\ParserExcel\AST\Expression;
-use Wladimir\ParserExcel\AST\Function\AbstractFunction;
-use Wladimir\ParserExcel\AST\FunctionBuilder;
-use Wladimir\ParserExcel\AST\Operator\Operator;
+use SobolevWladimir\Vexcel\AST\DataType\FloatExpression;
+use SobolevWladimir\Vexcel\AST\DataType\IntExpression;
+use SobolevWladimir\Vexcel\AST\DataType\StringExpression;
+use SobolevWladimir\Vexcel\AST\DataType\VariableExpression;
+use SobolevWladimir\Vexcel\AST\Expression;
+use SobolevWladimir\Vexcel\AST\Function\AbstractFunction;
+use SobolevWladimir\Vexcel\AST\FunctionBuilder;
+use SobolevWladimir\Vexcel\AST\Operator\Operator;
 
 class JsonDecoder implements JsonDecoderInterface
 {

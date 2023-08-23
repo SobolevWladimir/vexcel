@@ -1,6 +1,6 @@
 <?php
 
-namespace Wladimir\ParserExcel\Repository;
+namespace SobolevWladimir\Vexcel\Repository;
 
 interface ValueRepositoryInterface
 {

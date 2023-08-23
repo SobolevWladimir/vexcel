@@ -1,8 +1,8 @@
 <?php
 
-namespace Wladimir\ParserExcel\Exceptions;
+namespace SobolevWladimir\Vexcel\Exceptions;
 
-use Wladimir\ParserExcel\Lexer\Token;
+use SobolevWladimir\Vexcel\Lexer\Token;
 
 class SyntaxError extends \Exception
 {
