@@ -17,6 +17,9 @@
   * Возможность преобразовать синтаксическое дерево обратно в формулу. (Полезно, если возможно изменение названий переменных со временем). 
 
 ## Установка 
+```bash
+composer require sobolevwladimir/vexcel
+```
 
 ## Начало работы    
 
@@ -24,7 +27,7 @@
 ```php
 <?php
 ...
-use Wladimir\ParserExcel\Parser\Parser;
+use SobolevWladimir\Vexcel\Parser\Parser;
 ```
 Далее нам можно преобразовать нашу формулу в [абстрактное синтаксическое дерево](https://ru.wikipedia.org/wiki/Абстрактное_синтаксическое_дерево) (Далее АСТ). 
 
@@ -52,7 +55,7 @@ foreach($repositorys as $repository) {
 Для использования переменных, нам необходимо объяснить системе: откуда брать значения переменных. Для этого создайте класс, реализующий интерфейс ValueRepository.
 Например, давайте представим, что у нас есть переменные, названия которых соответствуют числам ("ПЕРЕМЕН_ОДИН"=1, "ПЕРЕМЕН_ДВА"=2, "ПЕРЕМЕН_ТРИ"=3 и тд). Тогда класс будет иметь следующий вид: 
 ```php
-use Wladimir\ParserExcel\Repository\ValueRepositoryInterface;
+use SobolevWladimir\Vexcel\Repository\ValueRepositoryInterface;
 
 class ValueRepositoryFake implements ValueRepositoryInterface
 {
