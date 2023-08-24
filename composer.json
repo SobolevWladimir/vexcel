@@ -4,12 +4,7 @@
   "type": "library",
   "homepage": "https://github.com/SobolevWladimir/vexcel",
   "license": "MIT",
-  "keywords": [
-    "parser",
-    "excel",
-    "formula",
-    "syntax"
-  ],
+  "keywords": ["parser", "excel", "formula","syntax"],
   "require": {
     "php": ">=8.2.0"
   },
