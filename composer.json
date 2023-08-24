@@ -2,16 +2,17 @@
   "name": "sobolevwladimir/vexcel",
   "description": "Parse excel formula to syntax tree",
   "type": "library",
+  "homepage": "https://github.com/SobolevWladimir/vexcel",
   "license": "MIT",
   "keywords": [
     "parser",
     "excel",
     "formula",
     "syntax",
-    "tree"
   ],
-  "minimum-stability": "dev",
-  "prefer-stable": true,
+  "require": {
+    "php": ">=8.2.0"
+  },
   "autoload": {
     "psr-4": {
       "SobolevWladimir\\Vexcel\\": "src/"
