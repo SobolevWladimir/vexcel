@@ -19,6 +19,6 @@ class FloatExpression extends DataType
 
     public function getUsedVariables(): array
     {
-      return [];
+        return [];
     }
 }
