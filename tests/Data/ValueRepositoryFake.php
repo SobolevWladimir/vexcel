@@ -18,6 +18,10 @@ class ValueRepositoryFake implements ValueRepositoryInterface
 
     public function getValueByIdentifier(string $identificator): mixed
     {
+        if (!\array_key_exists($identificator, $this->variables)) {
+            throw new \Exception("Not exist {$identificator}");
+        }
+
         return $this->variables[$identificator];
     }
 }

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests\integration;
+
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SobolevWladimir\Vexcel\AST\FormulaAST;

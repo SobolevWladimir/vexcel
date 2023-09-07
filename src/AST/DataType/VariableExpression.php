@@ -31,4 +31,9 @@ class VariableExpression extends DataType
     {
         return $this->identifier;
     }
+
+    public function getUsedVariables(): array
+    {
+        return [$this->identifier];
+    }
 }

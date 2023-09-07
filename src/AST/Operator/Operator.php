@@ -212,4 +212,11 @@ class Operator implements Expression
     {
         return $left < $riht;
     }
+
+    public function getUsedVariables(): array
+    {
+        $result = $this->leftExpression->getUsedVariables();
+
+        return array_merge($result, $this->rightExpression->getUsedVariables());
+    }
 }

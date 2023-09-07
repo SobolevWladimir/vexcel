@@ -61,4 +61,15 @@ abstract class AbstractFunction implements Expression
     {
         return $this->args;
     }
+
+    public function getUsedVariables(): array
+    {
+        $result = [];
+
+        foreach ($this->args as $arg) {
+            $result = array_merge($result, $arg->getUsedVariables());
+        }
+
+        return $result;
+    }
 }

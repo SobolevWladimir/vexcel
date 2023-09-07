@@ -8,6 +8,13 @@ use SobolevWladimir\Vexcel\Repository\ValueRepositoryInterface;
 interface Expression
 {
     /**
+     * Получить список используемых переменных.
+     *
+     * @return string[]
+     */
+    public function getUsedVariables(): array;
+
+    /**
      * /**
      * Подсчитывает  и возвращает значение.
      *

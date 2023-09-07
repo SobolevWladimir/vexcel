@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests\integration;
+
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SobolevWladimir\Vexcel\Parser\Parser;
@@ -85,5 +87,12 @@ final class FullTest extends TestCase
         $formula = $sut->parse($code);
         $repository = new ValueRepositoryFake();
         self::assertSame($expected, $formula->calculate($repository));
+    }
+
+    public function testGetUsedVariables(): void
+    {
+        $sut = new Parser();
+        $formula = $sut->parse('ТРИ + ДВА + ТРИ');
+        self::assertSame(['ТРИ', 'ДВА'], $formula->getUsedVariables());
     }
 }

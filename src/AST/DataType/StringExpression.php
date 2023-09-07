@@ -16,4 +16,9 @@ class StringExpression extends DataType
     {
         return (string)$this->token->value;
     }
+
+    public function getUsedVariables(): array
+    {
+        return [];
+    }
 }
