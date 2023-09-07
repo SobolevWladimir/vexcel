@@ -142,6 +142,18 @@ final class LexerTest extends TestCase
         $this->assertSameTokens($response, $tokens);
     }
 
+    public function testVarNubmer(): void
+    {
+        $formula = 'Пользователь_123';
+        $sut = new Lexer();
+        $sut->setCode($formula);
+        $response = [
+            new Token(TokenType::Variable, 'Пользователь_123'),
+        ];
+        $tokens = $sut->getAllTokens();
+        $this->assertSameTokens($response, $tokens);
+    }
+
     public function testFunctionSumm(): void
     {
         $formula = 'Сумма(2;3)';

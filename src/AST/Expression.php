@@ -8,7 +8,7 @@ use SobolevWladimir\Vexcel\Repository\ValueRepositoryInterface;
 interface Expression
 {
     /**
-     * Вернуть список используемых переменных.
+     * Получить список используемых переменных.
      *
      * @return string[]
      */

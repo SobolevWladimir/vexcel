@@ -302,7 +302,7 @@ class Lexer
                 break;
             }
 
-            if (!$this->isVariable()) {
+            if (!$this->isVariable() && !$this->isNumber()) {
                 break;
             }
 
