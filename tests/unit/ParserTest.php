@@ -115,6 +115,22 @@ final class ParserTest extends TestCase
         self::assertSame($formula->calculate(), 12.0);
     }
 
+    public function testParentheesTwo(): void
+    {
+        $lexer = new FakeLexer([
+            new Token(TokenType::Parentheses, '('),
+            new Token(TokenType::Float, 3.0),
+            new Token(TokenType::BinaryOperator, '+'),
+            new Token(TokenType::Float, 4.0),
+            new Token(TokenType::Parentheses, ')'),
+            new Token(TokenType::BinaryOperator, '*'),
+            new Token(TokenType::Float, 2.0),
+        ]);
+        $sut = new Parser(lexer: $lexer);
+        $formula = $sut->parse('');
+        self::assertSame($formula->calculate(), 14.0);
+    }
+
     public function testConditionTrue(): void
     {
         $lexer = new FakeLexer([
