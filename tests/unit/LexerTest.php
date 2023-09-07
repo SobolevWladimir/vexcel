@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests\unit;
+
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use SobolevWladimir\Vexcel\Lexer\Lexer;
@@ -220,7 +222,7 @@ final class LexerTest extends TestCase
      */
     private function assertSameTokens(array $expectedValues, array $actual): void
     {
-        self::assertSame(count($expectedValues), count($actual));
+        self::assertSame(\count($expectedValues), \count($actual));
 
         foreach ($actual as $key => $token) {
             $expected = $expectedValues[$key];

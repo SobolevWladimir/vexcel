@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests\unit;
+
 use PHPUnit\Framework\TestCase;
 use SobolevWladimir\Vexcel\Lexer\Token;
 use SobolevWladimir\Vexcel\Lexer\TokenType;
