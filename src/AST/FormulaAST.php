@@ -60,6 +60,10 @@ class FormulaAST implements \JsonSerializable
      */
     public function getUsedVariables(): array
     {
-        return array_unique($this->body->getUsedVariables());
+        if ($this->body !== null) {
+            return array_unique($this->body->getUsedVariables());
+        }
+
+        return [];
     }
 }
