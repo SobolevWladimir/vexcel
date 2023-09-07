@@ -16,4 +16,9 @@ class IntExpression extends DataType
     {
         return (int)$this->token->value;
     }
+
+    public function getUsedVariables(): array
+    {
+        return [];
+    }
 }

@@ -52,4 +52,14 @@ class FormulaAST implements \JsonSerializable
 
         return $encoder->encode($this->body);
     }
+
+    /**
+     * Получить список используемых переменных.
+     *
+     * @return string[]
+     */
+    public function getUsedVariables(): array
+    {
+        return array_unique($this->body->getUsedVariables());
+    }
 }

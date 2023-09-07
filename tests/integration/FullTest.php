@@ -86,4 +86,11 @@ final class FullTest extends TestCase
         $repository = new ValueRepositoryFake();
         self::assertSame($expected, $formula->calculate($repository));
     }
+
+    public function testGetUsedVariables(): void
+    {
+        $sut = new Parser();
+        $formula = $sut->parse('ТРИ + ДВА + ТРИ');
+        self::assertSame(['ТРИ', 'ДВА'], $formula->getUsedVariables());
+    }
 }

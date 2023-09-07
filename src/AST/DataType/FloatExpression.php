@@ -16,4 +16,9 @@ class FloatExpression extends DataType
     {
         return new JsonData('float', $this->token, []);
     }
+
+    public function getUsedVariables(): array
+    {
+      return [];
+    }
 }
