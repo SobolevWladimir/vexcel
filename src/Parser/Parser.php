@@ -221,6 +221,7 @@ class Parser implements ParserInterface
 
             return null;
         }
+        $this->nextToken();
 
         return $expression;
     }
