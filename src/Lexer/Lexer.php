@@ -200,7 +200,7 @@ class Lexer
         return false;
     }
 
-    private function isSpatialSymbol()
+    private function isSpatialSymbol(): bool
     {
         if (array_search($this->getCurrentSymbol(), $this->spatialSymbol) !== false) {
             return true;
