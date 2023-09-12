@@ -16,10 +16,13 @@ class Lexer
     private array $tokens = [];
 
     /** @var string[] */
-    private array $conditionalOperators = ['=', '<', '>'];
+    protected array $conditionalOperators = ['=', '<', '>'];
 
     /** @var string[] */
-    private array $operators = ['*', '/', '+', '-', '^'];
+    protected array $operators = ['*', '/', '+', '-', '^'];
+
+    /** @var string[] */
+    protected array $spatialSymbol = ['\\', '$'];
 
     private string $text;
 
@@ -85,6 +88,10 @@ class Lexer
 
             if ($this->isOperator()) {
                 return $this->readOperator();
+            }
+
+            if ($this->isSpatialSymbol()) {
+                return $this->readSpatialVariable();
             }
 
             if ($this->isVariable()) {
@@ -193,6 +200,15 @@ class Lexer
         return false;
     }
 
+    private function isSpatialSymbol()
+    {
+        if (array_search($this->getCurrentSymbol(), $this->spatialSymbol) !== false) {
+            return true;
+        }
+
+        return false;
+    }
+
     private function isEscaped(): bool
     {
         $currentSymbol = $this->getCurrentSymbol();
@@ -284,6 +300,25 @@ class Lexer
         }
 
         return new Token(TokenType::BinaryOperator, $result, $startRow, $startColumn);
+    }
+
+    private function readSpatialVariable(): Token
+    {
+        $startColumn = $this->column;
+        $startRow = $this->row;
+
+        if ($this->isSpatialSymbol()) {
+            $this->nextSymbol();
+        }
+        $result = '';
+
+        while (!$this->isSpatialSymbol() && !$this->isEnd()) {
+            $result .= $this->getCurrentSymbol();
+            $this->nextSymbol();
+        }
+        $this->nextSymbol();
+
+        return new Token(TokenType::Variable, $result, $startRow, $startColumn);
     }
 
     private function readVariable(): Token
