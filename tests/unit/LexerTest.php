@@ -104,20 +104,6 @@ final class LexerTest extends TestCase
         self::assertSame(json_encode($response), json_encode($tokens));
     }
 
-    // public function testOperatorNotEqual(): void
-    // {
-    //      $formula  = "3 != 4";
-    //      $sut = new Lexer();
-    //      $sut->setCode($formula);
-    //      $response = [
-    //         new Token(TokenType::Int, 3),
-    //         new Token(TokenType::ConditionalOperator, '!=', 0, 2),
-    //         new Token(TokenType::Int, 4, 0, 5),
-    //      ];
-    //      $tokens  = $sut->getAllTokens();
-    //      $this->assertSame(json_encode($response), json_encode($tokens));
-    // }
-
     public function testVar(): void
     {
         $formula = 'Месторождение + Language';
@@ -127,6 +113,34 @@ final class LexerTest extends TestCase
             new Token(TokenType::Variable, 'Месторождение'),
             new Token(TokenType::BinaryOperator, '+', 0, 14),
             new Token(TokenType::Variable, 'Language', 0, 16),
+        ];
+        $tokens = $sut->getAllTokens();
+        self::assertSame(json_encode($response), json_encode($tokens));
+    }
+
+    public function testSpatialVar(): void
+    {
+        $formula = '$Месторождение Language$ + Вася';
+        $sut = new Lexer();
+        $sut->setCode($formula);
+        $response = [
+            new Token(TokenType::Variable, 'Месторождение Language'),
+            new Token(TokenType::BinaryOperator, '+', 0, 25),
+            new Token(TokenType::Variable, 'Вася', 0, 27),
+        ];
+        $tokens = $sut->getAllTokens();
+        self::assertSame(json_encode($response), json_encode($tokens));
+    }
+
+    public function testSpatialTwo(): void
+    {
+        $formula = '\Месторождение Language\ + Вася';
+        $sut = new Lexer();
+        $sut->setCode($formula);
+        $response = [
+            new Token(TokenType::Variable, 'Месторождение Language'),
+            new Token(TokenType::BinaryOperator, '+', 0, 25),
+            new Token(TokenType::Variable, 'Вася', 0, 27),
         ];
         $tokens = $sut->getAllTokens();
         self::assertSame(json_encode($response), json_encode($tokens));
