@@ -69,7 +69,30 @@ class VexcelEncoder implements EncoderInterface
     {
         $id = $expresion->getIdentifier();
 
-        return $this->repository->getNameByIdentifier($id);
+        $name = $this->repository->getNameByIdentifier($id);
+
+        if ($this->isNeedShieldingVariable($name)) {
+            return '$' . $name . '$';
+        }
+
+        return $name;
+    }
+
+    private function isNeedShieldingVariable(string $name): bool
+    {
+        for ($i = 0; $i < \strlen($name); $i++) {
+            $char = $name[$i];
+
+            if ($char === '') {
+                continue;
+            }
+
+            if (!preg_match('/[a-zA-Zа-яА-Я._0-9]/i', $char)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function encodeFunction(AbstractFunction $fun): string
